@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.larssentech.fx.shared.io.FragmentWriter;
 import org.larssentech.fx.shared.io.TransmissionConfirm;
-import org.larssentech.fx.shared.io.TransmissionPersist;
 import org.larssentech.fx.shared.manager.Manager4Transmission;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
 import org.larssentech.fx.shared.util.UtilInfo;
@@ -43,9 +42,8 @@ class Manager4Upload extends Manager4Transmission {
 		this.fragw = new FragmentWriter(this.sb, this.spec);
 		boolean success = this.fragw.writeStream();
 
-		if (success) TransmissionPersist.moveItems(success, this.spec.getCurrentFile(), true);
+		if (success) this.spec.getCurrentFile().delete();
 
 		else this.spec.updateProgress(MSG_UPLOAD_NOT_SUCCESSFUL);
-
 	}
 }

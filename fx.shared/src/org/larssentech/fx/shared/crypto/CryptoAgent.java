@@ -1,11 +1,12 @@
 package org.larssentech.fx.shared.crypto;
 
 import org.larssentech.CTK.settings.CTKSettings;
+import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
 import org.larssentech.lib.basiclib.net.SocketBundle;
 import org.larssentech.lib.log.Logg3r;
 
-public class CryptoAgent implements CTKSettings {
+public class CryptoAgent implements CTKSettings, FxConstants {
 
 	protected final TransmissionSpec spec;
 	protected final SocketBundle sb;

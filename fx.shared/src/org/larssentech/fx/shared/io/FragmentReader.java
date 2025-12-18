@@ -17,6 +17,8 @@ public class FragmentReader extends FragmentHandler {
 
 	public void readStream() throws IOException {
 
+		Logg3r.log2(D_LOG, "Invoking fragment reader...");
+
 		// Main receiver loop
 		long receivedBytes = 0;
 
@@ -42,7 +44,6 @@ public class FragmentReader extends FragmentHandler {
 
 			receivedBytes += readCount;
 
-			Logg3r.log2(D_LOG, "Persisting fragment...");
 			TransmissionPersist.persistStream(fileName, bytesRead, readCount, folder);
 
 			this.updateProgress(receivedBytes, this.spec.getHeader().getSize());
@@ -58,13 +59,12 @@ public class FragmentReader extends FragmentHandler {
 		this.updateProgress("[End Receive]");
 		this.updateProgress("");
 
-		Logg3r.log2(D_LOG, "(4) We says: " + receivedBytes);
+		Logg3r.log2(D_LOG, "< (3) We says: " + receivedBytes);
 		String line = TransmissionConfirm.provideConfirmation(this.sb, receivedBytes);
 
-		Logg3r.log2(D_LOG, "(4) Server says: " + line);
+		Logg3r.log2(D_LOG, "> (3) Server says: " + line);
 		this.printResult(line);
 
 		this.sb.close();
 	}
-
 }
