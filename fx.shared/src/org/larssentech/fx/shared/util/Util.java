@@ -1,6 +1,7 @@
 package org.larssentech.fx.shared.util;
 
 import java.io.File;
+import java.util.Base64;
 
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.lib.basiclib.settings.SettingsExtractor;
@@ -117,5 +118,30 @@ public class Util implements FxConstants {
 				!file.isDirectory() &&
 
 				file.length() > 0;
+	}
+
+	public static File base64Enc(File clearFile) {
+
+		String path = clearFile.getParent();
+		String name = clearFile.getName();
+
+		String b64name = Base64.getEncoder().encodeToString(name.getBytes());
+
+		String base64FileName = path + FxConstants.SEP + b64name;
+		File base64File = new File(base64FileName);
+
+		return base64File;
+	}
+
+	public static File base64Dec(File encFile) {
+		String path = encFile.getParent();
+		String name = encFile.getName();
+
+		byte[] clearName = Base64.getDecoder().decode(name);
+
+		String base64FileName = path + FxConstants.SEP + new String(clearName);
+		File base64File = new File(base64FileName);
+
+		return base64File;
 	}
 }

@@ -7,7 +7,7 @@ import org.larssentech.fx.shared.FxConstants;
 
 public interface SharedReg extends FxConstants {
 
-	String VERSION = "FileXare GUI - v0.3.8" + " / " + FxConstants.VERSION;
+	String VERSION = "FX GUI - v0.3.9" + " / " + FxConstants.VERSION;
 
 	String OS_NAME = System.getProperty("os.name");
 	String MAC_OS = "Mac OS X";

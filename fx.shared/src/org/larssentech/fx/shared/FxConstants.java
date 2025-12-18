@@ -5,7 +5,7 @@ import java.util.Date;
 
 public interface FxConstants {
 
-	String VERSION = "v0.6.0";
+	String VERSION = "FX v0.7.1";
 	String COPYRIGHT = " (c) 2025 Larssentech.org" + "\n";
 
 	String HOME = System.getProperty("user.home");
@@ -36,9 +36,10 @@ public interface FxConstants {
 	int MILLIS_SLEEP_UPLOAD = 100;
 	int MILLIS_SLEEP_DOWNLOAD = 2000;
 
-	String MSG_UPLOADER_STOP = "DirectoryManager (Uploader thread) was told to stop. Bye.";
 	String MSG_UPLOAD_STREAM_EXCEPTION = "Upload Exception.\nOnly part of the file may have been sent!";
 	String MSG_UPLOAD_NOT_SUCCESSFUL = "FileTransfer failed, file unstable?";
 
 	public static final File D_LOG = new File(new Date() + "_" + "download.log");
+	public static final File U_LOG = new File(new Date() + "_" + "upload.log");
+
 }

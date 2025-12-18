@@ -6,6 +6,8 @@ import org.larssentech.fx.client.upload.UploaderJobMan;
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
+import org.larssentech.fx.shared.util.Util;
+import org.larssentech.fx.ui.gui.shared.SharedReg;
 import org.larssentech.fx.ui.gui.shared.UiController;
 import org.larssentech.fx.ui.gui.shared.WidgetMaker;
 import org.larssentech.lib.CTK.objects.PUK;
@@ -22,6 +24,7 @@ class UploaderUiController extends UiController implements FxConstants {
 	}
 
 	void start() {
+
 		String host = WidgetMaker.getText(this.owner, UploaderReg.NAME_HOST);
 		int port = WidgetMaker.getNumber(this.owner, UploaderReg.NAME_PORT);
 		String folder = WidgetMaker.getText(this.owner, UploaderReg.NAME_FOLDER);
@@ -57,7 +60,7 @@ class UploaderUiController extends UiController implements FxConstants {
 
 					UploaderUiController.super.doControls(UploaderUiController.this.jobMan.isOn());
 
-					String thisReport = UploaderUiController.this.jobMan.getClientProgress();
+					String thisReport = UploaderUiController.this.jobMan.getProgress();
 
 					if (!thisReport.equals(UploaderReg.NO_INFO)) {
 
@@ -65,29 +68,23 @@ class UploaderUiController extends UiController implements FxConstants {
 						UploaderUiController.this.owner.getOutputArea().setCaretPosition(UploaderUiController.this.owner.getOutputArea().getText().length());
 					}
 
-					try {
-						Thread.sleep(UploaderReg.SLEEP_MILLIS);
-
-					} catch (InterruptedException ignored) {
-
-					}
+					Util.pause(UploaderReg.SLEEP_MILLIS, "");
 
 					if (!UploaderUiController.this.jobMan.isOn()) {
 
 						UploaderUiController.this.doControls(UploaderUiController.this.jobMan.isOn());
-						UploaderUiController.this.owner.getOutputArea().append("User stopped upload. Closing connections.");
 						UploaderUiController.this.owner.getOutputArea().setCaretPosition(UploaderUiController.this.owner.getOutputArea().getText().length());
 						break;
 					}
 				}
-
 			}
 		};
 		t.start();
 	}
 
 	public void stopClient() {
-		UploaderUiController.this.jobMan.stopClient();
+		UploaderUiController.this.jobMan.stopConnect();
+		UploaderUiController.this.owner.getOutputArea().setText(SharedReg.MSG_TAREA_STOPPED);
 
 	}
 }

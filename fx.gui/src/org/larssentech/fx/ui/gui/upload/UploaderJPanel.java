@@ -30,23 +30,23 @@ public class UploaderJPanel extends JPanel {
 		this.setName(UploaderReg.APP_NAME);
 
 		// User
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_USER, SettingsExtractor.extractThis4(iniFile, "USER"), true));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_USER, SettingsExtractor.extractThis4(iniFile, "USER"), false));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_USER));
 
 		// Send to
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_SEND_TO, SettingsExtractor.extractThis4(iniFile, "OTHER_USER"), true));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_SEND_TO, SettingsExtractor.extractThis4(iniFile, "OTHER_USER"), false));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_SEND_TO));
 
 		// Host
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_HOST, SettingsExtractor.extractThis4(iniFile, "HOST"), true));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_HOST, SettingsExtractor.extractThis4(iniFile, "HOST"), false));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_HOST));
 
 		// Port
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_PORT, UploaderReg.VAL_PORT, true));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_PORT, UploaderReg.VAL_PORT, false));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_PORT));
 
 		// File
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_FOLDER, UploaderReg.VAL_FOLDER, true));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_FOLDER, UploaderReg.VAL_FOLDER, false));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_FOLDER));
 
 		// Output scroll pane with text area

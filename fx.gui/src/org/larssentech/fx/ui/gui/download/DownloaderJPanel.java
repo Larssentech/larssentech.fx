@@ -31,23 +31,23 @@ public class DownloaderJPanel extends JPanel {
 		this.setName(DownloaderReg.APP_NAME);
 
 		// User
-		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_USER, SettingsExtractor.extractThis4(iniFile, "USER"), true));
+		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_USER, SettingsExtractor.extractThis4(iniFile, "USER"), false));
 		this.add(WidgetMaker.makeLabel(DownloaderReg.LBL_USER));
 
 		// Receive from
-		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_RECEIVE_FROM, SettingsExtractor.extractThis4(iniFile, "OTHER_USER"), true));
+		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_RECEIVE_FROM, SettingsExtractor.extractThis4(iniFile, "OTHER_USER"), false));
 		this.add(WidgetMaker.makeLabel(DownloaderReg.LBL_RECEIVE_FROM));
 
 		// Host
-		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_HOST, SettingsExtractor.extractThis4(iniFile, "HOST"), true));
+		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_HOST, SettingsExtractor.extractThis4(iniFile, "HOST"), false));
 		this.add(WidgetMaker.makeLabel(DownloaderReg.LBL_HOST));
 
 		// Port
-		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_PORT, DownloaderReg.VAL_PORT, true));
+		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_PORT, DownloaderReg.VAL_PORT, false));
 		this.add(WidgetMaker.makeLabel(DownloaderReg.LBL_PORT));
 
 		// File
-		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_FOLDER, DownloaderReg.VAL_FOLDER, true));
+		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_FOLDER, DownloaderReg.VAL_FOLDER, false));
 		this.add(WidgetMaker.makeLabel(DownloaderReg.LBL_FOLDER));
 
 		// Output scroll pane with text area

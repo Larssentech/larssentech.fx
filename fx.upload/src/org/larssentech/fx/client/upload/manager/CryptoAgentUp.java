@@ -3,8 +3,6 @@ package org.larssentech.fx.client.upload.manager;
 import java.io.File;
 import java.io.IOException;
 
-import org.larssentech.CTK.driver.EmbeddedApi;
-import org.larssentech.fx.client.upload.FxUpload;
 import org.larssentech.fx.shared.crypto.CryptoAgent;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
 import org.larssentech.fx.shared.util.Util;
@@ -13,12 +11,8 @@ import org.larssentech.lib.log.Logg3r;
 
 class CryptoAgentUp extends CryptoAgent {
 
-	private Manager4Upload um;
-	private EmbeddedApi ctk;
-
-	CryptoAgentUp(EmbeddedApi ctk, SocketBundle sb, TransmissionSpec spec) {
+	CryptoAgentUp(SocketBundle sb, TransmissionSpec spec) {
 		super(sb, spec);
-		this.ctk = ctk;
 	}
 
 	boolean streamOne() throws IOException {
@@ -40,12 +34,14 @@ class CryptoAgentUp extends CryptoAgent {
 						this.spec.getCurrentUnencFile().delete();
 					}
 
-					this.um = new Manager4Upload(this.sb, this.spec);
-					this.um.streamOne();
+					// =========================
+					// This is the critical part
+					NetAgent4Upload um = new NetAgent4Upload(this.sb, this.spec);
+					um.streamOne();
+					// =========================
 
 					return true;
 				}
-
 			}
 		}
 
@@ -70,8 +66,8 @@ class CryptoAgentUp extends CryptoAgent {
 			currSize = file.length();
 			currDate = file.lastModified();
 
-			Logg3r.log2(FxUpload.U_LOG, "PrevSize: " + prevSize + ", CurrSize: " + currSize);
-			Logg3r.log2(FxUpload.U_LOG, "PrevDate: " + prevDate + ", CurrDate: " + currDate);
+			Logg3r.log2(U_LOG, "PrevSize: " + prevSize + ", CurrSize: " + currSize);
+			Logg3r.log2(U_LOG, "PrevDate: " + prevDate + ", CurrDate: " + currDate);
 
 			counter++;
 
@@ -86,6 +82,6 @@ class CryptoAgentUp extends CryptoAgent {
 	public void setOff() {
 
 		super.setOff();
-		this.um.setOff();
+
 	}
 }

@@ -7,6 +7,7 @@ import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
 import org.larssentech.fx.shared.util.Util;
+import org.larssentech.fx.ui.gui.shared.SharedReg;
 import org.larssentech.fx.ui.gui.shared.UiController;
 import org.larssentech.fx.ui.gui.shared.WidgetMaker;
 import org.larssentech.lib.CTK.objects.PUK;
@@ -80,14 +81,14 @@ class DownloaderUiController extends UiController implements FxConstants {
 						break;
 					}
 				}
-
 			}
 		};
 		t.start();
 	}
 
 	public void stopClient() {
-		DownloaderUiController.this.jobMan.stopManager();
+		DownloaderUiController.this.jobMan.stopConnect();
+		DownloaderUiController.this.owner.getOutputArea().setText(SharedReg.MSG_TAREA_STOPPED);
 
 	}
 }

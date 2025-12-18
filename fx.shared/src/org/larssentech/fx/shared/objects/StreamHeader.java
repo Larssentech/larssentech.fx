@@ -58,4 +58,9 @@ public class StreamHeader implements FxXmlSpec {
 	public String getOtherUser() {
 		return this.sendTo;
 	}
+
+	public void setName(String s) {
+		this.name = s;
+
+	}
 }
