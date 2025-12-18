@@ -10,17 +10,18 @@ import javax.swing.JTextArea;
 import org.larssentech.fx.ui.gui.shared.WidgetMaker;
 import org.larssentech.lib.basiclib.settings.SettingsExtractor;
 
+@SuppressWarnings("serial")
 public class DownloaderJPanel extends JPanel {
 
 	private DownloaderUiController uiController;
 	private JTextArea outputArea;
 
-	public DownloaderJPanel() {
+	public DownloaderJPanel(String iniFile) {
 
-		this.build();
+		this.build(iniFile);
 	}
 
-	private void build() {
+	private void build(String iniFile) {
 
 		this.uiController = new DownloaderUiController(this);
 
@@ -30,15 +31,15 @@ public class DownloaderJPanel extends JPanel {
 		this.setName(DownloaderReg.APP_NAME);
 
 		// User
-		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_USER, SettingsExtractor.extractThis4("fx-gui.ini", "user"), true));
+		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_USER, SettingsExtractor.extractThis4(iniFile, "USER"), true));
 		this.add(WidgetMaker.makeLabel(DownloaderReg.LBL_USER));
 
 		// Receive from
-		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_RECEIVE_FROM, SettingsExtractor.extractThis4("fx-gui.ini", "other_user"), true));
+		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_RECEIVE_FROM, SettingsExtractor.extractThis4(iniFile, "OTHER_USER"), true));
 		this.add(WidgetMaker.makeLabel(DownloaderReg.LBL_RECEIVE_FROM));
 
 		// Host
-		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_HOST, DownloaderReg.VAL_HOST, true));
+		this.add(WidgetMaker.makeTextField(DownloaderReg.FIELD_WIDTH, DownloaderReg.NAME_HOST, SettingsExtractor.extractThis4(iniFile, "HOST"), true));
 		this.add(WidgetMaker.makeLabel(DownloaderReg.LBL_HOST));
 
 		// Port

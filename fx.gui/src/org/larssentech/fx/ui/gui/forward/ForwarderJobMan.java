@@ -2,15 +2,16 @@ package org.larssentech.fx.ui.gui.forward;
 
 import org.larssentech.fx.server.forward.FxForward;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
+import org.larssentech.fx.shared.objects.TransmissionSpec;
 
 class ForwarderJobMan extends Thread {
 
 	private FxForward fx;
 	private final TransmissionProgress progress = new TransmissionProgress();
 
-	public ForwarderJobMan(final int port, final String inFolder) {
+	public ForwarderJobMan(TransmissionSpec spec) {
 
-		this.fx = new FxForward(port, inFolder, this.progress);
+		this.fx = new FxForward(spec);
 	}
 
 	@Override

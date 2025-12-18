@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.larssentech.fx.shared.FxConstants;
-import org.larssentech.lib.basiclib.console.Out;
 import org.larssentech.lib.basiclib.io.file.StreamWriter;
+import org.larssentech.lib.log.Logg3r;
 
 public class TransmissionPersist implements FxConstants {
 
@@ -13,16 +13,17 @@ public class TransmissionPersist implements FxConstants {
 
 		if (!targetFolder.isDirectory()) {
 
-			Out.pl("Creating user dir: " + targetFolder);
+			Logg3r.log2(D_LOG, "Creating user dir: " + targetFolder);
 			targetFolder.mkdirs();
 
-			Out.pl("Directory exists: " + targetFolder.isDirectory());
+			Logg3r.log("Directory exists: " + targetFolder.isDirectory());
 		}
 
-		StreamWriter writer = new StreamWriter(new File(targetFolder + SEP + fileName));
-
+		Logg3r.log2(D_LOG, "Writing fragment to file...");
+		StreamWriter writer = new StreamWriter(new File(targetFolder + SEP + "_" + fileName));
 		writer.writeBytes(bytesRead, readCount);
 		writer.closeStream();
+		Logg3r.log2(D_LOG, "Fragment written to file... OK");
 	}
 
 	public static void persistFragment(String fileName, byte[] bytesRead, int readCount, String targetFolder, long num) {
@@ -31,10 +32,11 @@ public class TransmissionPersist implements FxConstants {
 
 		if (!new File(fileFolder).isDirectory()) {
 
-			Out.pl("Creating file dir: " + fileFolder);
+			Logg3r.log("Creating file dir: " + fileFolder);
+
 			new File(fileFolder).mkdirs();
 
-			Out.pl("Directory exists: " + new File(fileFolder).isDirectory());
+			Logg3r.log("Directory exists: " + new File(fileFolder).isDirectory());
 		}
 
 		StreamWriter writer = new StreamWriter(new File(fileFolder + SEP + fileName + DOT + num));

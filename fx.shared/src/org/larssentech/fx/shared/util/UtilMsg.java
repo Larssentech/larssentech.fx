@@ -7,7 +7,7 @@ import org.larssentech.fx.shared.objects.TransmissionSpec;
 
 public class UtilMsg implements FxConstants {
 
-	public static String forwarderStartMsg(File file, int port) {
+	public static synchronized String forwarderStartMsg(File file, int port) {
 
 		return "FileXare " + VERSION + FxConstants.COPYRIGHT +
 
@@ -16,7 +16,7 @@ public class UtilMsg implements FxConstants {
 				" - Forwarding folder: " + file.getAbsolutePath() + "\n" + "========================================" + "\n";
 	}
 
-	public static String receiverStartMsg(TransmissionSpec spec) {
+	public static synchronized String receiverStartMsg(TransmissionSpec spec) {
 
 		return "FileXare " + VERSION + FxConstants.COPYRIGHT +
 
@@ -25,32 +25,13 @@ public class UtilMsg implements FxConstants {
 				" - Receiving folder: " + spec.getFolder() + "\n" + "========================================" + "\n";
 	}
 
-	public static String downloadStartMsg(String host, int port, String folder, String user, String receiveFrom) {
+	public static synchronized String uploadStartMsg(TransmissionSpec spec) {
 
-		return "FileXare " + VERSION + FxConstants.COPYRIGHT +
-
-				"FileXare Downloader Service: " + "\n" +
-
-				" - User: " + user + "\n" +
-
-				" - Receiving from: " + receiveFrom + "\n" +
-
-				" - Downloading from host: " + host + "\n" +
-
-				" - Downloading from port: " + port + "\n" +
-
-				" - Downloading to folder: " + folder + SEP + receiveFrom + "\n" +
-
-				"========================================" + "\n";
-	}
-
-	public static String uploadStartMsg(TransmissionSpec spec) {
-
-		return "FileXare " + VERSION + FxConstants.COPYRIGHT +
+		return "\nFileXare " + VERSION + FxConstants.COPYRIGHT +
 
 				"FileXare Uploader Service: " + "\n" +
 
-				" - User: " + spec.getUser() + "\n" +
+				" - User: " + spec.getMe() + "\n" +
 
 				" - Sending to: " + spec.getOtherUser() + "\n" +
 
@@ -63,13 +44,13 @@ public class UtilMsg implements FxConstants {
 				"========================================" + "\n";
 	}
 
-	public static String downloadStartMsg(TransmissionSpec spec) {
+	public static synchronized String downloadStartMsg(TransmissionSpec spec) {
 
-		return "FileXare " + VERSION + FxConstants.COPYRIGHT +
+		return "\nFileXare " + VERSION + FxConstants.COPYRIGHT +
 
 				"FileXare Downloader Service: " + "\n" +
 
-				" - User: " + spec.getUser() + "\n" +
+				" - User: " + spec.getMe() + "\n" +
 
 				" - Receiving from: " + spec.getOtherUser() + "\n" +
 
@@ -81,5 +62,4 @@ public class UtilMsg implements FxConstants {
 
 				"========================================" + "\n";
 	}
-
 }

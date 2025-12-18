@@ -1,14 +1,13 @@
 package org.larssentech.fx.shared.manager;
 
 import java.io.IOException;
-import java.util.Date;
 
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.io.FragmentReader;
 import org.larssentech.fx.shared.io.FragmentWriter;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
-import org.larssentech.lib.basiclib.console.Out;
 import org.larssentech.lib.basiclib.net.SocketBundle;
+import org.larssentech.lib.log.Logg3r;
 
 public class Manager4Transmission implements FxConstants {
 
@@ -26,7 +25,7 @@ public class Manager4Transmission implements FxConstants {
 
 	public void setOff() {
 
-		Out.pl(new Date().toString() + " - " + "TransmissiondManager Stopped by user.");
+		Logg3r.log("TransmissiondManager Stopped by user.");
 
 		try {
 			// FragmentWriter will be null if there is no current upload/download
@@ -34,7 +33,7 @@ public class Manager4Transmission implements FxConstants {
 			if (null != this.fragw) this.fragw.setOff();
 
 		} catch (IOException e) {
-			Out.pl(new Date().toString() + " - " + "TransmissiondManager Stopped by user. Forced close socket. Exception caught.");
+			Logg3r.log("TransmissiondManager Stopped by user. Forced close socket. Exception caught.");
 		}
 	}
 }

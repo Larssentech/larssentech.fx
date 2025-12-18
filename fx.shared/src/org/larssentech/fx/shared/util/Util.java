@@ -3,7 +3,6 @@ package org.larssentech.fx.shared.util;
 import java.io.File;
 
 import org.larssentech.fx.shared.FxConstants;
-import org.larssentech.lib.basiclib.console.Out;
 import org.larssentech.lib.basiclib.settings.SettingsExtractor;
 
 public class Util implements FxConstants {
@@ -26,7 +25,11 @@ public class Util implements FxConstants {
 		try {
 
 			Thread.sleep(i);
-			Out.p(string);
+			if (string.length() > 0) {
+				System.out.println("");
+				System.out.println(string);
+				System.out.println("");
+			}
 
 		} catch (InterruptedException ignored) {
 		}
@@ -43,39 +46,6 @@ public class Util implements FxConstants {
 
 		}
 		return files;
-	}
-
-	public static boolean stabiliseLocal(File file) {
-
-		int counter = 0;
-
-		long prevSize = file.length();
-		long prevDate = file.lastModified();
-		long currSize = 0;
-		long currDate = 0;
-
-		do {
-
-			Util.pause(5000, "");
-
-			prevSize = currSize;
-			prevDate = currDate;
-			currSize = file.length();
-			currDate = file.lastModified();
-
-			Out.pl("PrevSize: " + prevSize + ", CurrSize: " + currSize);
-			Out.pl("PrevDate: " + prevDate + ", CurrDate: " + currDate);
-
-			counter++;
-
-			if (counter > 2) return false;
-
-			Util.pause(5000, "");
-
-		} while ((currSize > prevSize) || currSize == 0 || prevSize == 0);
-
-		return true;
-
 	}
 
 	public static boolean stabilise(File file) {
@@ -138,8 +108,14 @@ public class Util implements FxConstants {
 		}
 	}
 
-	public static boolean fileAllowed(File file) {
+	public static boolean fileValid(File file) {
 
-		return !file.getName().startsWith(DOT) && !file.isDirectory() && file.getName().endsWith(".blowfish");
+		return file.exists() &&
+
+				!file.getName().startsWith(DOT) &&
+
+				!file.isDirectory() &&
+
+				file.length() > 0;
 	}
 }

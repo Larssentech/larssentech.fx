@@ -14,7 +14,7 @@ public class FragmentWriter extends FragmentHandler {
 		super(sb, spec);
 	}
 
-	public boolean writeStream() throws IOException {
+	public boolean writeStream() {
 
 		File file = this.spec.getCurrentFile();
 
@@ -42,25 +42,54 @@ public class FragmentWriter extends FragmentHandler {
 
 			totalCount += readCount;
 
-			// Send pay load, which will quite often be below 64K ARRAY_SIZE, WHY?
-			this.sb.write(bytesRead, 0, readCount);
+			try {
+				// Send pay load, which will quite often be below 64K ARRAY_SIZE, WHY?
+				this.sb.write(bytesRead, 0, readCount);
 
-			// TODO
-			// If we sent an "OK", and then read the response, and is another "OK"
-			// (meaning the chunk was both received and persisted).
-			// That would mean this chunk has reached the receiver. Then we can
-			// send the next chunk. Else, we send the same chunk again?
+			} catch (IOException e) {
+
+				e.printStackTrace();
+
+				// Sleep and retry once
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException ignored) {
+
+				}
+				try {
+					this.sb.write(bytesRead, 0, readCount);
+
+				} catch (IOException e1) {
+
+					e1.printStackTrace();
+				}
+			}
 
 			this.updateProgress(totalCount, targetFileLength);
 		}
 
 		byteReader.closeStream();
 
-		final boolean b = TransmissionConfirm.requestConfirm(this.sb, file, totalCount);
+		boolean success = false;
+		try {
+			success = TransmissionConfirm.requestConfirm(this.sb, file, totalCount);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		this.printResult(b ? OK : FAIL);
-		this.sb.close();
+		this.printResult(success ? OK : FAIL);
 
-		return totalCount == targetFileLength;
+		try {
+			this.sb.close();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+		if (success) file.delete();
+
+		return success;
 	}
 }

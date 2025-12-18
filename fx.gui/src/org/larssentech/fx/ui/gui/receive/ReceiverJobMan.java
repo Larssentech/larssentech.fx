@@ -2,15 +2,16 @@ package org.larssentech.fx.ui.gui.receive;
 
 import org.larssentech.fx.server.receive.FxReceive;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
+import org.larssentech.fx.shared.objects.TransmissionSpec;
 
 class ReceiverJobMan extends Thread {
 
 	private FxReceive fx;
 	private final TransmissionProgress progress = new TransmissionProgress();
 
-	public ReceiverJobMan(final int port, final String inFolder) {
+	public ReceiverJobMan(TransmissionSpec spec) {
 
-		this.fx = new FxReceive(port, inFolder, this.progress);
+		this.fx = new FxReceive(spec);
 	}
 
 	@Override

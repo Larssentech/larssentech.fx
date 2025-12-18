@@ -10,14 +10,21 @@ import org.larssentech.lib.basiclib.net.SocketBundle;
 
 public class TransmissionConfirm {
 
-	public static String sendHeader(SocketBundle sb, File fileTarget, String user, String sendTo) throws IOException {
+	public static String sendHeader(SocketBundle sb, File fileTarget, String user, String sendTo) {
 
 		String xml = XmlGen.generateHeader(fileTarget, user, sendTo);
 
 		// Send header as text
 		sb.printOut(xml);
 
-		return sb.readLineIn();
+		try {
+			return sb.readLineIn();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "";
 	}
 
 	public static boolean requestConfirm(SocketBundle sb, File fileTarget, long totalCount) throws IOException {
@@ -46,7 +53,7 @@ public class TransmissionConfirm {
 	}
 
 	public static String sendHeader(SocketBundle sb, TransmissionSpec spec) throws IOException {
-		String xml = XmlGen.generateHeader(spec.getCurrentFile(), spec.getUser(), spec.getOtherUser());
+		String xml = XmlGen.generateHeader(spec.getCurrentFile(), spec.getMe(), spec.getOtherUser());
 
 		// Send header as text
 		sb.printOut(xml);

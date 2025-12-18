@@ -1,24 +1,24 @@
 package org.larssentech.fx.shared.crypto;
 
-import java.util.Date;
-
+import org.larssentech.CTK.settings.CTKSettings;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
-import org.larssentech.lib.basiclib.console.Out;
 import org.larssentech.lib.basiclib.net.SocketBundle;
+import org.larssentech.lib.log.Logg3r;
 
-public class CryptoAgent {
+public class CryptoAgent implements CTKSettings {
 
-	protected TransmissionSpec spec;
-	protected SocketBundle sb;
+	protected final TransmissionSpec spec;
+	protected final SocketBundle sb;
 
-	public CryptoAgent(SocketBundle sb, TransmissionSpec spec) {
+	protected CryptoAgent(final SocketBundle sb, final TransmissionSpec spec) {
+
 		this.sb = sb;
 		this.spec = spec;
+
 	}
 
-	public void setOff() {
+	protected void setOff() {
 
-		Out.pl(new Date().toString() + " - " + "CryptoAgent Stopped by user.");
-
+		Logg3r.log("CryptoAgent Stopped by user.");
 	}
 }

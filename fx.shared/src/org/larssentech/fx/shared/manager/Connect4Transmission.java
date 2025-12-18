@@ -1,16 +1,14 @@
 package org.larssentech.fx.shared.manager;
 
-import java.util.Date;
-
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
-import org.larssentech.lib.basiclib.console.Out;
+import org.larssentech.lib.log.Logg3r;
 
 public class Connect4Transmission extends Thread implements FxConstants {
 
-	protected TransmissionSpec spec;
+	protected final TransmissionSpec spec;
 
-	public Connect4Transmission(TransmissionSpec spec) {
+	public Connect4Transmission(final TransmissionSpec spec) {
 
 		this.spec = spec;
 	}
@@ -25,7 +23,7 @@ public class Connect4Transmission extends Thread implements FxConstants {
 
 	public void setOff() {
 
-		Out.pl(new Date().toString() + " - " + "Connect4Transmission Stopped by user.");
+		Logg3r.log("Connect4Transmission Stopped by user.");
 		this.spec.setOn(false);
 	}
 }

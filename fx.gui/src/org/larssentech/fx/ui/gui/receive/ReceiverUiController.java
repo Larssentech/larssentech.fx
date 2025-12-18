@@ -21,8 +21,9 @@ class ReceiverUiController extends UiController {
 
 		String inFolder = WidgetMaker.getTextField(this.owner, ReceiverReg.NAME_HOST).getText();
 
+		
 		// Start job manager
-		this.jobMan = new ReceiverJobMan(port, inFolder);
+		this.jobMan = new ReceiverJobMan(null);
 		this.jobMan.start();
 
 		this.startReporting();

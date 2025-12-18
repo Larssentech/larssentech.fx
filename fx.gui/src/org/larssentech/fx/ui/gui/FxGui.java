@@ -13,20 +13,19 @@ public class FxGui extends JFrame {
 
 	public static void main(String[] args) {
 
-		new FxGui();
+		if (args.length > 0) new FxGui(args[0]);
+		else new FxGui("fx-gui.ini");
 	}
 
-	public FxGui() {
+	public FxGui(String iniFile) {
 
 		Util.createClientFolders();
 
 		JTabbedPane tp = WidgetMaker.makeTabbedPane();
 
 		// Add fully functional panels here
-		// tp.add(new ForwarderJPanel());
-		tp.add(new DownloaderJPanel());
-		// tp.add(new ReceiverJPanel());
-		tp.add(new UploaderJPanel());
+		tp.add(new DownloaderJPanel(iniFile));
+		tp.add(new UploaderJPanel(iniFile));
 
 		this.add(tp);
 
@@ -37,6 +36,5 @@ public class FxGui extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(SharedReg.COLOUR_BACKGROUND);
-
 	}
 }

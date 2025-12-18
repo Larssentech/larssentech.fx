@@ -1,11 +1,15 @@
 package org.larssentech.fx.ui.gui.download;
 
+import org.larssentech.CTK.driver.EmbeddedApi;
+import org.larssentech.CTK.settings.CTKSettings;
+import org.larssentech.fx.client.download.DownloaderJobMan;
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
 import org.larssentech.fx.shared.util.Util;
 import org.larssentech.fx.ui.gui.shared.UiController;
 import org.larssentech.fx.ui.gui.shared.WidgetMaker;
+import org.larssentech.lib.CTK.objects.PUK;
 
 class DownloaderUiController extends UiController implements FxConstants {
 
@@ -20,24 +24,29 @@ class DownloaderUiController extends UiController implements FxConstants {
 
 	void start() {
 
-		// JTextField h = WidgetMaker.getTextField(this.owner, DownloaderReg.NAME_HOST);
-		// JTextField portS = WidgetMaker.getTextField(this.owner,
-		// DownloaderReg.NAME_PORT);
-
 		String host = WidgetMaker.getText(this.owner, DownloaderReg.NAME_HOST);
 		int port = WidgetMaker.getNumber(this.owner, DownloaderReg.NAME_PORT);
 		String folder = WidgetMaker.getText(this.owner, DownloaderReg.NAME_FOLDER);
 		String user = WidgetMaker.getText(this.owner, DownloaderReg.NAME_USER);
 		String otherUser = WidgetMaker.getText(this.owner, DownloaderReg.NAME_RECEIVE_FROM);
 
-		// new
-		TransmissionSpec spec = new TransmissionSpec(host, port, folder + SEP + otherUser, user, otherUser, this.progress, false);
-		this.jobMan = new DownloaderJobMan(spec);
+		String path = CTKSettings.OTHER_USERS_PUB_KEY_LIB + FxConstants.SEP + otherUser + FxConstants.SEP + otherUser;
 
-		// this.jobMan = new DownloaderJobMan(host, port, folder, user, otherUser);
-		this.jobMan.start();
+		PUK puk = new PUK(EmbeddedApi.exportPuk2Base64(path));
 
-		this.startReporting();
+		if (puk.getStringValue().length() > 0) {
+
+			puk.setEmail(otherUser);
+
+			final String targetFolder = folder + FxConstants.SEP + otherUser;
+
+			final TransmissionSpec spec = new TransmissionSpec(host, port, targetFolder, user, puk, this.progress, false);
+
+			this.jobMan = new DownloaderJobMan(spec);
+			this.jobMan.start();
+
+			this.startReporting();
+		}
 
 	}
 

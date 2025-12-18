@@ -1,9 +1,8 @@
 package org.larssentech.fx.shared.objects;
 
-import java.util.Date;
 import java.util.Vector;
 
-import org.larssentech.lib.basiclib.console.Out;
+import org.larssentech.lib.log.Logg3r;
 
 public class TransmissionProgress {
 
@@ -58,13 +57,12 @@ public class TransmissionProgress {
 
 			return s;
 
-		}
-		else return "NO_INFO";
+		} else return "NO_INFO";
 	}
 
 	public void addInfo(String string) {
 		this.progressStore.addElement(string);
-		Out.pl(new Date().toString() + " - " + string);
+		Logg3r.log(string);
 	}
 
 	public int getP100() {

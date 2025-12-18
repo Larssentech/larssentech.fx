@@ -1,12 +1,11 @@
 package org.larssentech.fx.shared.io;
 
 import java.io.IOException;
-import java.util.Date;
 
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
-import org.larssentech.lib.basiclib.console.Out;
 import org.larssentech.lib.basiclib.net.SocketBundle;
+import org.larssentech.lib.log.Logg3r;
 
 public class FragmentHandler implements FxConstants {
 
@@ -26,7 +25,7 @@ public class FragmentHandler implements FxConstants {
 
 	public void setOff() throws IOException {
 
-		Out.pl(new Date().toString() + " - " + "FragmentHandler Stopped by user.");
+		Logg3r.log("FragmentHandler Stopped by user.");
 
 		this.on = false;
 		this.sb.close();

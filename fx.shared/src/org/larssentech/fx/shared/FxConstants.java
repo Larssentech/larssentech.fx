@@ -1,8 +1,11 @@
 package org.larssentech.fx.shared;
 
+import java.io.File;
+import java.util.Date;
+
 public interface FxConstants {
 
-	String VERSION = "v0.4.8";
+	String VERSION = "v0.6.0";
 	String COPYRIGHT = " (c) 2025 Larssentech.org" + "\n";
 
 	String HOME = System.getProperty("user.home");
@@ -13,6 +16,7 @@ public interface FxConstants {
 	String FAIL = "FAIL";
 	String EXP_SIZE = "exp-size";
 	String HELLO = "HELLO";
+	String TMP_TOK = "_";
 
 	String FILEXARE_HOME = HOME + SEP + "FileXare";
 	String FILEXARE_OUTBOX = FILEXARE_HOME + SEP + "Uploads";
@@ -29,9 +33,12 @@ public interface FxConstants {
 	String VAL_DOWNLOAD_PORT = "54546";
 
 	int ARRAY_SIZE = 64000;
-	int MILLIS_SLEEP_UPLOAD = 5000;
+	int MILLIS_SLEEP_UPLOAD = 100;
+	int MILLIS_SLEEP_DOWNLOAD = 2000;
 
 	String MSG_UPLOADER_STOP = "DirectoryManager (Uploader thread) was told to stop. Bye.";
 	String MSG_UPLOAD_STREAM_EXCEPTION = "Upload Exception.\nOnly part of the file may have been sent!";
 	String MSG_UPLOAD_NOT_SUCCESSFUL = "FileTransfer failed, file unstable?";
+
+	public static final File D_LOG = new File(new Date() + "_" + "download.log");
 }

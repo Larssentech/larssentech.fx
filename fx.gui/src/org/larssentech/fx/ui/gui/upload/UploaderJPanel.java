@@ -15,12 +15,12 @@ public class UploaderJPanel extends JPanel {
 	private UploaderUiController uiController;
 	private JTextArea outputArea;
 
-	public UploaderJPanel() {
+	public UploaderJPanel(String iniFile) {
 
-		this.build();
+		this.build(iniFile);
 	}
 
-	private void build() {
+	private void build(String iniFile) {
 
 		this.uiController = new UploaderUiController(this);
 
@@ -30,15 +30,15 @@ public class UploaderJPanel extends JPanel {
 		this.setName(UploaderReg.APP_NAME);
 
 		// User
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_USER, SettingsExtractor.extractThis4("fx-gui.ini", "user"), true));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_USER, SettingsExtractor.extractThis4(iniFile, "USER"), true));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_USER));
 
 		// Send to
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_SEND_TO, SettingsExtractor.extractThis4("fx-gui.ini", "other_user"), true));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_SEND_TO, SettingsExtractor.extractThis4(iniFile, "OTHER_USER"), true));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_SEND_TO));
 
 		// Host
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_HOST, UploaderReg.VAL_HOST, true));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_HOST, SettingsExtractor.extractThis4(iniFile, "HOST"), true));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_HOST));
 
 		// Port

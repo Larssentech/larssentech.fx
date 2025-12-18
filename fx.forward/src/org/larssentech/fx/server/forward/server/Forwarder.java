@@ -36,7 +36,7 @@ import org.larssentech.lib.basiclib.net.SocketBundle;
  */
 public class Forwarder implements FxConstants {
 
-	private static ServerSocket ss;
+	private ServerSocket ss;
 	private boolean on = true;
 	private TransmissionSpec spec;
 
@@ -54,7 +54,7 @@ public class Forwarder implements FxConstants {
 		this.on = false;
 
 		try {
-			ss.close();
+			this.ss.close();
 		}
 
 		catch (IOException e) {
@@ -70,11 +70,11 @@ public class Forwarder implements FxConstants {
 
 		try {
 			Out.pl(UtilInfo.serverStartInfo() + this.spec.getPort());
-			Forwarder.ss = new ServerSocket(this.spec.getPort());
+			this.ss = new ServerSocket(this.spec.getPort());
 
 			do {
 
-				Socket s = Forwarder.ss.accept();
+				Socket s = this.ss.accept();
 
 				SocketBundle sb = new SocketBundle(s);
 
@@ -106,7 +106,7 @@ public class Forwarder implements FxConstants {
 
 			try {
 
-				Forwarder.ss.close();
+				this.ss.close();
 			} catch (IOException e) {
 
 				e.printStackTrace();

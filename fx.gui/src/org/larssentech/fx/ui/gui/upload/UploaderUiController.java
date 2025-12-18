@@ -1,10 +1,14 @@
 package org.larssentech.fx.ui.gui.upload;
 
+import org.larssentech.CTK.driver.EmbeddedApi;
+import org.larssentech.CTK.settings.CTKSettings;
+import org.larssentech.fx.client.upload.UploaderJobMan;
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
 import org.larssentech.fx.ui.gui.shared.UiController;
 import org.larssentech.fx.ui.gui.shared.WidgetMaker;
+import org.larssentech.lib.CTK.objects.PUK;
 
 class UploaderUiController extends UiController implements FxConstants {
 
@@ -24,15 +28,20 @@ class UploaderUiController extends UiController implements FxConstants {
 		String user = WidgetMaker.getText(this.owner, UploaderReg.NAME_USER);
 		String otherUser = WidgetMaker.getText(this.owner, UploaderReg.NAME_SEND_TO);
 
-		// new
-		TransmissionSpec spec = new TransmissionSpec(host, port, folder + SEP + otherUser, user, otherUser, this.progress, false);
-		this.jobMan = new UploaderJobMan(spec);
+		String path = CTKSettings.OTHER_USERS_PUB_KEY_LIB + FxConstants.SEP + otherUser + FxConstants.SEP + otherUser;
 
-		// this.jobMan = new UploaderJobMan(host, port, folder, user, otherUser);
-		this.jobMan.start();
+		PUK puk = new PUK(EmbeddedApi.exportPuk2Base64(path));
 
-		this.startReporting();
+		if (puk.getStringValue().length() > 0) {
 
+			puk.setEmail(otherUser);
+
+			TransmissionSpec spec = new TransmissionSpec(host, port, folder + FxConstants.SEP + otherUser, user, puk, this.progress, false);
+			this.jobMan = new UploaderJobMan(spec);
+			this.jobMan.start();
+
+			this.startReporting();
+		}
 	}
 
 	private void startReporting() {

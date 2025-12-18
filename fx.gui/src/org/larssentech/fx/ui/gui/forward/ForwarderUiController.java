@@ -22,7 +22,7 @@ class ForwarderUiController extends UiController {
 		String inFolder = WidgetMaker.getTextField(this.owner, ForwarderReg.NAME_FOLDER).getText();
 
 		// Start job manager
-		this.jobMan = new ForwarderJobMan(port, inFolder);
+		this.jobMan = new ForwarderJobMan(null);
 		this.jobMan.start();
 
 		this.startReporting();
