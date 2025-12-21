@@ -17,9 +17,11 @@ public class CryptoAgent implements CTKSettings, FxConstants {
 	protected final SocketBundle sb;
 	protected NetAgent man;
 	protected EmbeddedApi ctk;
+	private File log;
 
-	protected CryptoAgent(final SocketBundle sb, final TransmissionSpec spec) {
+	protected CryptoAgent(File log, final SocketBundle sb, final TransmissionSpec spec) {
 
+		this.log = log;
 		this.sb = sb;
 		this.spec = spec;
 		this.initCtk();
@@ -28,7 +30,7 @@ public class CryptoAgent implements CTKSettings, FxConstants {
 
 	protected void setOff() {
 		this.man.setOff();
-		Logg3r.log("CryptoAgent Stopped by user.");
+		Logg3r.log2(this.log, "CryptoAgent Stopped by user.");
 	}
 
 	protected void initCtk() {
@@ -43,7 +45,7 @@ public class CryptoAgent implements CTKSettings, FxConstants {
 		new File(CTKSettings.HOME_DIR + CTKSettings.SEP + CTKSettings.CTK_HOME).mkdir();
 		new File(CTKSettings.HOME_DIR + CTKSettings.SEP + CTKSettings.OWN_RSA_DIR).mkdir();
 
-		this.ctk = new EmbeddedApi();
+		this.ctk = new EmbeddedApi(this.log);
 		this.ctk.loadPublicKeyForUser(this.spec.getPuk());
 
 	}

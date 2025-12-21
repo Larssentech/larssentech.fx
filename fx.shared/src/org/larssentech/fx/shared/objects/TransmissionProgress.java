@@ -1,5 +1,6 @@
 package org.larssentech.fx.shared.objects;
 
+import java.io.File;
 import java.util.Vector;
 
 import org.larssentech.lib.log.Logg3r;
@@ -9,9 +10,10 @@ public class TransmissionProgress {
 	private Vector<String> progressStore;
 	private int p100;
 	private long lastByteCount;
+	private File log;
 
-	public TransmissionProgress() {
-
+	public TransmissionProgress(File log) {
+		this.log = log;
 		this.init();
 	}
 
@@ -62,17 +64,9 @@ public class TransmissionProgress {
 
 	public void addInfo(String string) {
 		this.progressStore.addElement(string);
-		Logg3r.log(string);
+		Logg3r.log2(this.log, string);
 	}
 
-	public int getP100() {
-		return this.p100;
-	}
-
-	public void printResult(String line) {
-
-		addInfo("====================" + "\n" + "Done: " + line);
-
-	}
+	public int getP100() { return this.p100; }
 
 }

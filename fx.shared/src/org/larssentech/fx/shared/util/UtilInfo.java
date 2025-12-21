@@ -6,22 +6,6 @@ import org.larssentech.fx.shared.objects.StreamHeader;
 
 public class UtilInfo {
 
-	public static String downloadInfo(StreamHeader xp) {
-
-		return
-
-		"\n" + "[incoming-file] <" + xp.getName() + "> " + "\n" + "[incoming-size] <" + xp.getSize() + ">" + "\n" +
-
-				"[incoming-blocks] <" + xp.getNum() + ">" + "\n" + "[user-receiving-you] <" + xp.getUser() + ">" + "\n" +
-
-				"[user-sending] <" + xp.getOtherUser() + ">";
-	}
-
-	public static String uploadInfo(File file) {
-
-		return "\n[sending-file] <" + file.getName() + ">\n" + "[sending-size] <" + file.length() + ">";
-	}
-
 	public static String receiverInfo(StreamHeader xp) {
 
 		return "\n" + "[incoming-file] <" + xp.getName() + "> " + "\n" +

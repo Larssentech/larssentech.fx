@@ -54,65 +54,35 @@ public class TransmissionSpec {
 
 	}
 
-	public StreamHeader getHeader() {
-		return this.header;
-	}
+	public StreamHeader getHeader() { return this.header; }
 
-	public boolean isDelete() {
-		return this.delete;
-	}
+	public boolean isDelete() { return this.delete; }
 
-	public void setDelete(boolean delete) {
-		this.delete = delete;
-	}
+	public void setDelete(boolean delete) { this.delete = delete; }
 
-	public boolean isOn() {
-		return this.on;
-	}
+	public boolean isOn() { return this.on; }
 
-	public void setOn(boolean on) {
-		this.on = on;
-	}
+	public void setOn(boolean on) { this.on = on; }
 
-	public File getFolder() {
-		return this.folder;
-	}
+	public File getFolder() { return this.folder; }
 
-	public String getHost() {
-		return this.host;
-	}
+	public String getHost() { return this.host; }
 
-	public int getPort() {
-		return this.port;
-	}
+	public int getPort() { return this.port; }
 
-	public TransmissionProgress getProgress() {
-		return this.progress;
-	}
+	public TransmissionProgress getProgress() { return this.progress; }
 
-	public String getMe() {
-		return this.me;
-	}
+	public String getMe() { return this.me; }
 
-	public String getOtherUser() {
-		return this.otherUser;
-	}
+	public String getOtherUser() { return this.otherUser; }
 
-	public File getCurrentFile() {
-		return this.currentFile;
-	}
+	public File getCurrentFile() { return this.currentFile; }
 
-	public void setCurrentFile(File currentFile) {
-		this.currentFile = currentFile;
-	}
+	public void setCurrentFile(File currentFile) { this.currentFile = currentFile; }
 
-	public File getCurrentUnencFile() {
-		return this.currentUnencFile;
-	}
+	public File getCurrentUnencFile() { return this.currentUnencFile; }
 
-	public void setCurrentUnencFile(File currentFile) {
-		this.currentUnencFile = currentFile;
-	}
+	public void setCurrentUnencFile(File currentFile) { this.currentUnencFile = currentFile; }
 
 	public void setFolder(File targetFolder) {
 		this.folder = targetFolder;
@@ -124,35 +94,19 @@ public class TransmissionSpec {
 
 	}
 
-	public void setOtherUser(String otherUser) {
-		this.otherUser = otherUser;
-	}
+	public void setOtherUser(String otherUser) { this.otherUser = otherUser; }
 
-	public File getMetadataFile() {
-		return this.metadataFile;
-	}
+	public File getMetadataFile() { return this.metadataFile; }
 
-	public void setMetadataFile(File metadataFile) {
-		this.metadataFile = metadataFile;
-	}
+	public void setMetadataFile(File metadataFile) { this.metadataFile = metadataFile; }
 
-	public void updateProgress(String text) {
-		this.getProgress().addInfo(text);
-	}
+	public void updateProgress(String text) { this.getProgress().addInfo(text); }
 
-	public File getServerRoot() {
-		return this.serverRoot;
-	}
+	public File getServerRoot() { return this.serverRoot; }
 
-	public void setServerRoot(File serverRoot) {
-		this.serverRoot = serverRoot;
-	}
+	public void setServerRoot(File serverRoot) { this.serverRoot = serverRoot; }
 
-	public PUK getPuk() {
-		return this.puk;
-	}
+	public PUK getPuk() { return this.puk; }
 
-	public void setPuk(PUK puk) {
-		this.puk = puk;
-	}
+	public void setPuk(PUK puk) { this.puk = puk; }
 }

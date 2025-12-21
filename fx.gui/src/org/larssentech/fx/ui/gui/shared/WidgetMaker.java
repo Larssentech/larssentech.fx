@@ -117,9 +117,6 @@ public class WidgetMaker {
 
 	public static JTabbedPane makeTabbedPane() {
 
-		// Fancy shit to make it look cool
-		UIManager.put("TabbedPane.selected", new Color(0, 135, 0));
-
 		Insets insets = UIManager.getInsets("TabbedPane.contentBorderInsets");
 		insets.top = -1;
 		insets.left = -1;
@@ -130,8 +127,8 @@ public class WidgetMaker {
 		// The actual tabbed pane
 		JTabbedPane tp = new JTabbedPane();
 
-		tp.setBackground(Color.darkGray);
-		tp.setForeground(Color.white);
+		tp.setBackground(Color.white);
+		tp.setForeground(Color.black);
 		tp.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
 		return tp;

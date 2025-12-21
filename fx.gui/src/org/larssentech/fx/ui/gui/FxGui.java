@@ -7,6 +7,8 @@ import org.larssentech.fx.shared.util.Util;
 import org.larssentech.fx.ui.gui.download.DownloaderJPanel;
 import org.larssentech.fx.ui.gui.shared.SharedReg;
 import org.larssentech.fx.ui.gui.shared.WidgetMaker;
+import org.larssentech.fx.ui.gui.stream.down.StreamDownJPanel;
+import org.larssentech.fx.ui.gui.stream.up.StreamUpJPanel;
 import org.larssentech.fx.ui.gui.upload.UploaderJPanel;
 
 public class FxGui extends JFrame {
@@ -24,6 +26,8 @@ public class FxGui extends JFrame {
 		JTabbedPane tp = WidgetMaker.makeTabbedPane();
 
 		// Add fully functional panels here
+		tp.add(new StreamUpJPanel(iniFile));
+		tp.add(new StreamDownJPanel(iniFile));
 		tp.add(new DownloaderJPanel(iniFile));
 		tp.add(new UploaderJPanel(iniFile));
 

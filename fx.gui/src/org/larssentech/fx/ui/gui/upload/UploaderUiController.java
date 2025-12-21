@@ -2,7 +2,7 @@ package org.larssentech.fx.ui.gui.upload;
 
 import org.larssentech.CTK.driver.EmbeddedApi;
 import org.larssentech.CTK.settings.CTKSettings;
-import org.larssentech.fx.client.upload.UploaderJobMan;
+import org.larssentech.fx.client.upload.manager.UploaderJobMan;
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
@@ -16,7 +16,7 @@ class UploaderUiController extends UiController implements FxConstants {
 
 	private final UploaderJPanel owner;
 	private UploaderJobMan jobMan;
-	private final TransmissionProgress progress = new TransmissionProgress();
+	private final TransmissionProgress progress = new TransmissionProgress(U_LOG);
 
 	protected UploaderUiController(final UploaderJPanel owner) {
 		super(owner);

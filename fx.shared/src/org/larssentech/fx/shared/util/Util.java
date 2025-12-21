@@ -111,7 +111,9 @@ public class Util implements FxConstants {
 
 	public static boolean fileValid(File file) {
 
-		return file.exists() &&
+		return null != file &&
+
+				file.exists() &&
 
 				!file.getName().startsWith(DOT) &&
 
@@ -143,5 +145,35 @@ public class Util implements FxConstants {
 		File base64File = new File(base64FileName);
 
 		return base64File;
+	}
+
+	public static boolean stabiliseLocal(File file) {
+
+		int counter = 0;
+
+		long prevSize = file.length();
+		long prevDate = file.lastModified();
+		long currSize = 0;
+		long currDate = 0;
+
+		do {
+
+			Util.pause(5000, "");
+
+			prevSize = currSize;
+			prevDate = currDate;
+			currSize = file.length();
+			currDate = file.lastModified();
+
+			// Logg3r.log2(U_LOG, "PrevSize: " + prevSize + ", CurrSize: " + currSize);
+			// Logg3r.log2(U_LOG, "PrevDate: " + prevDate + ", CurrDate: " + currDate);
+
+			counter++;
+
+			if (counter > 2) return false;
+
+		} while ((currSize > prevSize) || currSize == 0 || prevSize == 0);
+
+		return true;
 	}
 }

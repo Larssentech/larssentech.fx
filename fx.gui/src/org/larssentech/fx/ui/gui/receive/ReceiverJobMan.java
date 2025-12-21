@@ -1,5 +1,7 @@
 package org.larssentech.fx.ui.gui.receive;
 
+import java.io.File;
+
 import org.larssentech.fx.server.receive.FxReceive;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
@@ -7,7 +9,7 @@ import org.larssentech.fx.shared.objects.TransmissionSpec;
 class ReceiverJobMan extends Thread {
 
 	private FxReceive fx;
-	private final TransmissionProgress progress = new TransmissionProgress();
+	private final TransmissionProgress progress = new TransmissionProgress(new File("receiver.log"));
 
 	public ReceiverJobMan(TransmissionSpec spec) {
 
@@ -25,20 +27,12 @@ class ReceiverJobMan extends Thread {
 
 	}
 
-	boolean isOn() {
-		return this.fx.getReceiver().isOn();
-	}
+	boolean isOn() { return this.fx.getReceiver().isOn(); }
 
-	String getServerProgress() {
-		return this.progress.getProgress();
-	}
+	String getServerProgress() { return this.progress.getProgress(); }
 
-	public void stopServer() {
-		this.fx.getReceiver().setoff();
-	}
+	public void stopServer() { this.fx.getReceiver().setoff(); }
 
-	public int getP100() {
-		return Math.round(this.progress.getP100());
-	}
+	public int getP100() { return Math.round(this.progress.getP100()); }
 
 }

@@ -1,5 +1,7 @@
 package org.larssentech.fx.server.receive;
 
+import java.io.File;
+
 import org.larssentech.fx.server.receive.server.Receiver;
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
@@ -12,7 +14,7 @@ public class FxReceive implements FxConstants {
 
 	public static void main(String[] args) {
 
-		TransmissionSpec spec = new TransmissionSpec(Integer.parseInt(args[0]), args[1], new TransmissionProgress());
+		TransmissionSpec spec = new TransmissionSpec(Integer.parseInt(args[0]), args[1], new TransmissionProgress(new File("receive.log")));
 
 		new FxReceive(spec).startReceiver();
 	}

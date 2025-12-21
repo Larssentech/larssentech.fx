@@ -52,7 +52,7 @@ public class Manager4Forward extends Manager4Server {
 			if (Util.fileValid(currentFile)) {
 
 				// Will wait until file size is stable or quit if too long
-				if (Util.stabilise(currentFile)) {
+				if (Util.stabiliseLocal(currentFile)) {
 
 					// Now we have a stable file, send the header with info we know is correct
 					String response = TransmissionConfirm.sendHeader(this.sb, currentFile, this.spec.getMe(), this.spec.getOtherUser());
@@ -66,13 +66,15 @@ public class Manager4Forward extends Manager4Server {
 					// Display info about the file to send
 					this.spec.getProgress().addInfo(UtilInfo.forwardInfo(currentFile));
 
-					this.spec.getProgress().addInfo(FxConstants.REPORT_HEADER_OUT);
+					this.spec.getProgress().addInfo(FxConstants.LINER);
+					this.spec.getProgress().addInfo(FxConstants.REPORT_HEADER_OUT2);
 
 					// =========================
 					// This is the critical part
-					new FragmentWriter(this.sb, this.spec).writeStream();
+					filesSent = new FragmentWriter(this.sb, this.spec).streamOne(currentFile);
 					// =========================
 
+					if (filesSent) currentFile.delete();
 				}
 
 				break;

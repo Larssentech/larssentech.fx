@@ -5,8 +5,8 @@ import java.util.Date;
 
 public interface FxConstants {
 
-	String VERSION = "FX v0.7.1";
-	String COPYRIGHT = " (c) 2025 Larssentech.org" + "\n";
+	String VERSION = "FX v0.8.0";
+	String COPYRIGHT = " (c) 2025-2026 Larssentech.org" + "\n";
 
 	String HOME = System.getProperty("user.home");
 	String SEP = System.getProperty("file.separator");
@@ -24,8 +24,11 @@ public interface FxConstants {
 	String FILEXARE_SENT = FILEXARE_HOME + SEP + "Sent";
 	String FILEXARE_SERVER = HOME + SEP + "FileXare" + SEP + "server";
 
-	String REPORT_HEADER_IN = "\n" + "PROGRESS REPORT" + "\n" + "====================" + "\n" + "[%]" + "\t" + "[bytes_in]" + "\t" + "[total]";
-	String REPORT_HEADER_OUT = "\n" + "PROGRESS REPORT" + "\n" + "====================" + "\n" + "[%]" + "\t" + "[bytes_out]" + "\t" + "[total]";
+	String REPORT_HEADER_IN1 = "====================";
+	String REPORT_HEADER_IN2 = "[%]" + "\t" + "[in]" + "\t" + "[total]";
+
+	String LINER = "====================";
+	String REPORT_HEADER_OUT2 = "[%]" + "\t" + "[out]" + "\t" + "[total]";
 
 	String XML_RECEIVED_OK = "XML Received OK";
 
@@ -36,7 +39,7 @@ public interface FxConstants {
 	int MILLIS_SLEEP_UPLOAD = 100;
 	int MILLIS_SLEEP_DOWNLOAD = 2000;
 
-	String MSG_UPLOAD_STREAM_EXCEPTION = "Upload Exception.\nOnly part of the file may have been sent!";
+	String MSG_UPLOAD_STREAM_EXCEPTION = "Upload failed.";
 	String MSG_UPLOAD_NOT_SUCCESSFUL = "FileTransfer failed, file unstable?";
 
 	public static final File D_LOG = new File(new Date() + "_" + "download.log");

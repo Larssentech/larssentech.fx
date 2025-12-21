@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
 import org.larssentech.lib.basiclib.net.SocketBundle;
-import org.larssentech.lib.log.Logg3r;
 
 public class FragmentHandler implements FxConstants {
 
@@ -19,13 +18,9 @@ public class FragmentHandler implements FxConstants {
 		this.spec.getProgress().init();
 	}
 
-	public boolean isOn() {
-		return this.on;
-	}
+	public boolean isOn() { return this.on; }
 
 	public void setOff() throws IOException {
-
-		Logg3r.log("FragmentHandler Stopped by user.");
 
 		this.on = false;
 		this.sb.close();
@@ -36,14 +31,8 @@ public class FragmentHandler implements FxConstants {
 
 	}
 
-	protected void printResult(String line) {
-		this.spec.getProgress().printResult(line);
-
-	}
-
 	protected void updateProgress(long receivedBytes, long size) {
 		this.spec.getProgress().setProgress(receivedBytes, size);
 
 	}
-
 }

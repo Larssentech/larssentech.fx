@@ -1,87 +1,50 @@
 package org.larssentech.fx.client.upload.manager;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.larssentech.fx.shared.crypto.CryptoAgent;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
 import org.larssentech.fx.shared.util.Util;
 import org.larssentech.lib.basiclib.net.SocketBundle;
-import org.larssentech.lib.log.Logg3r;
 
 class CryptoAgentUp extends CryptoAgent {
 
-	CryptoAgentUp(SocketBundle sb, TransmissionSpec spec) {
-		super(sb, spec);
-	}
+	CryptoAgentUp(SocketBundle sb, TransmissionSpec spec) { super(U_LOG, sb, spec); }
 
-	boolean streamOne() throws IOException {
+	boolean streamOne(File base64File) {
 
-		if (this.stabiliseLocal(this.spec.getCurrentFile())) {
+		boolean success = false;
 
-			if (Util.fileValid(this.spec.getCurrentFile())) {
+		if (Util.fileValid(base64File)) {
 
-				String[] result = this.ctk.encryptBlowfish(this.spec.getCurrentFile().toString());
+			// Encrypt base64File
+			String base64FileName = base64File.getAbsoluteFile().toString();
+			String[] result = this.ctk.encryptBlowfish(base64FileName);
 
-				if (result.length > 0) {
+			// If we received a good CTK response
+			if (result.length > 0) {
 
-					File enc = new File(result[0]);
+				// Get the .blowfish file
+				File encBase64File = new File(result[0]);
 
-					if (Util.fileValid(enc)) {
+				// If the .blowfish file is good
+				if (Util.fileValid(encBase64File)) {
 
-						this.spec.setCurrentUnencFile(this.spec.getCurrentFile());
-						this.spec.setCurrentFile(enc);
-						this.spec.getCurrentUnencFile().delete();
-					}
-
+					// == Send =================
+					success = new NetAgent4Upload(this.sb, this.spec).streamOne(encBase64File);
 					// =========================
-					// This is the critical part
-					NetAgent4Upload um = new NetAgent4Upload(this.sb, this.spec);
-					um.streamOne();
-					// =========================
-
-					return true;
 				}
+
+				// Delete .blowfish file
+				encBase64File.delete();
 			}
+
+			else
+				// If CTK failed, put base64File back into clearFile and report
+				this.spec.updateProgress("File: '" + base64File.getName() + "' CTK FAIL");
+
 		}
 
-		return false;
-	}
-
-	private boolean stabiliseLocal(File file) {
-
-		int counter = 0;
-
-		long prevSize = file.length();
-		long prevDate = file.lastModified();
-		long currSize = 0;
-		long currDate = 0;
-
-		do {
-
-			Util.pause(5000, "");
-
-			prevSize = currSize;
-			prevDate = currDate;
-			currSize = file.length();
-			currDate = file.lastModified();
-
-			Logg3r.log2(U_LOG, "PrevSize: " + prevSize + ", CurrSize: " + currSize);
-			Logg3r.log2(U_LOG, "PrevDate: " + prevDate + ", CurrDate: " + currDate);
-
-			counter++;
-
-			if (counter > 2) return false;
-
-		} while ((currSize > prevSize) || currSize == 0 || prevSize == 0);
-
-		return true;
-
-	}
-
-	public void setOff() {
-
-		super.setOff();
-
+		return success;
 	}
 }

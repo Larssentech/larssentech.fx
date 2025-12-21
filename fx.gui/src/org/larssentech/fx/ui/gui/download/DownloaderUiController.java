@@ -2,7 +2,7 @@ package org.larssentech.fx.ui.gui.download;
 
 import org.larssentech.CTK.driver.EmbeddedApi;
 import org.larssentech.CTK.settings.CTKSettings;
-import org.larssentech.fx.client.download.DownloaderJobMan;
+import org.larssentech.fx.client.download.manager.DownloaderJobMan;
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
@@ -16,7 +16,7 @@ class DownloaderUiController extends UiController implements FxConstants {
 
 	private final DownloaderJPanel owner;
 	private DownloaderJobMan jobMan;
-	private final TransmissionProgress progress = new TransmissionProgress();
+	private final TransmissionProgress progress = new TransmissionProgress(D_LOG);
 
 	protected DownloaderUiController(final DownloaderJPanel owner) {
 		super(owner);

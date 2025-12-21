@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.larssentech.fx.shared.FxConstants;
-import org.larssentech.fx.shared.XmlGen;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
+import org.larssentech.fx.shared.util.XmlGen;
 import org.larssentech.lib.basiclib.net.SocketBundle;
 
 public class TransmissionConfirm {
@@ -52,8 +52,8 @@ public class TransmissionConfirm {
 
 	}
 
-	public static String sendHeader(SocketBundle sb, TransmissionSpec spec) throws IOException {
-		String xml = XmlGen.generateHeader(spec.getCurrentFile(), spec.getMe(), spec.getOtherUser());
+	public static String sendHeader(File file, SocketBundle sb, TransmissionSpec spec) throws IOException {
+		String xml = XmlGen.generateHeader(file, spec.getMe(), spec.getOtherUser());
 
 		// Send header as text
 		sb.printOut(xml);

@@ -10,7 +10,6 @@ import javax.swing.JTextArea;
 import org.larssentech.fx.ui.gui.shared.WidgetMaker;
 import org.larssentech.lib.basiclib.settings.SettingsExtractor;
 
-@SuppressWarnings("serial")
 public class DownloaderJPanel extends JPanel {
 
 	private DownloaderUiController uiController;
@@ -69,11 +68,7 @@ public class DownloaderJPanel extends JPanel {
 		this.setVisible(true);
 	}
 
-	JTextArea getOutputArea() {
-		return this.outputArea;
-	}
+	JTextArea getOutputArea() { return this.outputArea; }
 
-	public DownloaderUiController getUiController() {
-		return this.uiController;
-	}
+	public DownloaderUiController getUiController() { return this.uiController; }
 }

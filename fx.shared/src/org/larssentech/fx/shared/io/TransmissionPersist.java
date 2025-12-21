@@ -14,14 +14,11 @@ public class TransmissionPersist implements FxConstants {
 
 			Logg3r.log2(D_LOG, "Creating user dir: " + targetFolder);
 			targetFolder.mkdirs();
-
-			Logg3r.log("Directory exists: " + targetFolder.isDirectory());
+			Logg3r.log2(D_LOG, "Directory exists: " + targetFolder.isDirectory());
 		}
 
-		StreamWriter writer = new StreamWriter(new File(targetFolder + SEP + TMP_TOK + fileName));
+		StreamWriter writer = new StreamWriter(new File(targetFolder + SEP + fileName));
 		double c = writer.writeBytes(bytesRead, readCount);
 		writer.closeStream();
-
-		Logg3r.log2(D_LOG, "Written fragment of " + fileName + "  to file: " + c + " bytes");
 	}
 }

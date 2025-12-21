@@ -3,6 +3,7 @@ package org.larssentech.fx.shared.io;
 import java.io.File;
 import java.io.IOException;
 
+import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
 import org.larssentech.fx.shared.util.Util;
 import org.larssentech.lib.basiclib.net.SocketBundle;
@@ -10,61 +11,88 @@ import org.larssentech.lib.log.Logg3r;
 
 public class FragmentReader extends FragmentHandler {
 
-	public FragmentReader(SocketBundle sb, TransmissionSpec spec) {
+	public FragmentReader(SocketBundle sb, TransmissionSpec spec) { super(sb, spec); }
 
-		super(sb, spec);
-	}
+	public File retrieveOne(String encBase64FileName) {
 
-	public void readStream() throws IOException {
+		String tmpEncFileName = TMP_TOK + encBase64FileName;
+		File tmpBase64EncFile = new File(this.spec.getFolder() + SEP + tmpEncFileName);
 
-		Logg3r.log2(D_LOG, "Invoking fragment reader...");
+		try {
+			// Main receiver loop
+			long receivedBytes = 0;
 
-		// Main receiver loop
-		long receivedBytes = 0;
+			final byte[] bytesRead = new byte[ARRAY_SIZE];
 
-		final byte[] bytesRead = new byte[ARRAY_SIZE];
+			// Counters
+			int readCount = 0;
 
-		// Counters
-		int readCount = 0;
-		long num = 0;
+			// Expected download file details
 
-		String fileName = this.spec.getHeader().getName();
-		File folder = this.spec.getFolder();
+			File folder = this.spec.getFolder();
+			long encFileSize = this.spec.getHeader().getSize();
 
-		while ((readCount = this.sb.read(bytesRead)) > 0) {
+			this.spec.updateProgress(FxConstants.LINER);
+			this.spec.updateProgress(FxConstants.REPORT_HEADER_IN2);
 
-			// All blocks have to be of size=ARRAY_SIZE except the last
-			// Seems like sometimes 1483 bytes are read, then the diff
-			// to 64K, 62517, in 2 hops... why?
+			// Downloads the file with a small pause
+			while ((readCount = this.sb.read(bytesRead)) > 0) {
 
-			if (num < this.spec.getHeader().getNum()) {
-				// if (readCount != FxConstants.ARRAY_SIZE);
-				// Out.pl(FxConstants.INCORRECT_BLOCK_SIZE);
+				// TODO: ERRORS SOMETIMES HERE 'SOCKET IS CLOSED'
+
+				receivedBytes += readCount;
+
+				// == Receive ==============
+				TransmissionPersist.persistStream(tmpEncFileName, bytesRead, readCount, folder);
+				// =========================
+
+				this.updateProgress(receivedBytes, encFileSize);
+
+				if (receivedBytes == encFileSize) break;
+
+				Util.pause(100, "");
 			}
 
-			receivedBytes += readCount;
+			// If we get here, success, else tmpEncFile will be left here
 
-			TransmissionPersist.persistStream(fileName, bytesRead, readCount, folder);
+			this.spec.updateProgress(LINER);
+			this.spec.updateProgress("");
 
-			this.updateProgress(receivedBytes, this.spec.getHeader().getSize());
+			// Confirm to the server the number of bytes
+			Logg3r.log2(D_LOG, "< (3) We says: " + receivedBytes);
 
-			num++;
+			// Get confirmation from the server the number is OK
+			String line = TransmissionConfirm.provideConfirmation(this.sb, receivedBytes);
+			Logg3r.log2(D_LOG, "> (3) Server says: " + line);
 
-			if (receivedBytes == this.spec.getHeader().getSize()) break;
+			this.sb.close();
 
-			Util.pause(100, "");
+			Util.pause(1000, "");
+
+			// Server side
+			if (null == line) {
+				File base64EncFile = new File(folder + SEP + encBase64FileName);
+				tmpBase64EncFile.renameTo(base64EncFile);
+			}
+
+			// Client side
+			else if (line.equals("OK")) {
+
+				File base64EncFile = new File(folder + SEP + encBase64FileName);
+				tmpBase64EncFile.renameTo(base64EncFile);
+
+				return base64EncFile;
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+			tmpBase64EncFile.delete();
+			this.spec.updateProgress("File: '" + encBase64FileName + "' FragReader FAIL");
+			this.spec.updateProgress(e.toString());
 		}
 
-		new File(folder + SEP + TMP_TOK + fileName).renameTo(new File(folder + SEP + fileName));
-		this.updateProgress("[End Receive]");
-		this.updateProgress("");
-
-		Logg3r.log2(D_LOG, "< (3) We says: " + receivedBytes);
-		String line = TransmissionConfirm.provideConfirmation(this.sb, receivedBytes);
-
-		Logg3r.log2(D_LOG, "> (3) Server says: " + line);
-		this.printResult(line);
-
-		this.sb.close();
+		return null;
 	}
 }
