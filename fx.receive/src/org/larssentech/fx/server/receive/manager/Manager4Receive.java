@@ -7,7 +7,6 @@ import org.larssentech.fx.shared.objects.StreamHeader;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
 import org.larssentech.fx.shared.util.Util4Server;
 import org.larssentech.fx.shared.util.UtilInfo;
-import org.larssentech.lib.basiclib.console.Out;
 import org.larssentech.lib.basiclib.net.SocketBundle;
 
 public class Manager4Receive extends Manager4Server {
@@ -26,8 +25,6 @@ public class Manager4Receive extends Manager4Server {
 
 			String line = this.sb.readLineIn();
 
-			Out.pl(line);
-
 			if (null == line) return;
 
 			this.sb.printOut(FxConstants.XML_RECEIVED_OK);
@@ -40,19 +37,22 @@ public class Manager4Receive extends Manager4Server {
 
 			this.spec.setHeader(xp);
 
-			this.spec.getProgress().addInfo(line);
-			this.spec.getProgress().addInfo(UtilInfo.receiverInfo(xp));
+			// this.spec.getProgress().addInfo(line);
+			// this.spec.getProgress().addInfo(UtilInfo.receiverInfo(xp));
 
 			// Handle file particulars based on the Stream Header
 			Util4Server.processFileStructure(this.spec);
 
-			this.spec.getProgress().addInfo(FxConstants.REPORT_HEADER_IN1);
-			this.spec.getProgress().addInfo(FxConstants.REPORT_HEADER_IN2);
+			// this.spec.getProgress().addInfo(FxConstants.REPORT_HEADER_IN1);
+			// this.spec.getProgress().addInfo(FxConstants.REPORT_HEADER_IN2);
 
 			// Store the metadata file for incoming file
 			Util4Server.processMetadata(this.spec);
 
 			String encName = this.spec.getHeader().getName();
+
+			this.spec.getProgress().addInfo(UtilInfo.receiveInfo(encName));
+
 			// Read the stream of fragments
 			new FragmentReader(this.sb, this.spec).retrieveOne(encName);
 		}

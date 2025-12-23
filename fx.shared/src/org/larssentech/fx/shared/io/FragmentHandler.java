@@ -26,11 +26,6 @@ public class FragmentHandler implements FxConstants {
 		this.sb.close();
 	}
 
-	protected void updateProgress(String string) {
-		this.spec.getProgress().addInfo(string);
-
-	}
-
 	protected void updateProgress(long receivedBytes, long size) {
 		this.spec.getProgress().setProgress(receivedBytes, size);
 

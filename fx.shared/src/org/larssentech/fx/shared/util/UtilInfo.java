@@ -2,26 +2,11 @@ package org.larssentech.fx.shared.util;
 
 import java.io.File;
 
-import org.larssentech.fx.shared.objects.StreamHeader;
-
 public class UtilInfo {
-
-	public static String receiverInfo(StreamHeader xp) {
-
-		return "\n" + "[incoming-file] <" + xp.getName() + "> " + "\n" +
-
-				"[incoming-size] <" + xp.getSize() + ">" + "\n" +
-
-				"[incoming-blocks] <" + xp.getNum() + ">" + "\n" +
-
-				"[incoming-user] <" + xp.getUser() + ">" + "\n" +
-
-				"[incoming-send-to] <" + xp.getOtherUser() + ">";
-	}
 
 	public static String forwardInfo(File file) {
 
-		return "[sending-file] <" + file.getName() + ">\n" + "[sending-size] <" + file.length() + ">";
+		return "[sending-file] <" + file.getName() + "> " + "[sending-size] <" + file.length() + ">";
 	}
 
 	public static String serverStartInfo() {
@@ -29,4 +14,8 @@ public class UtilInfo {
 		return "Forwarder Server Socket Starting, Port: ";
 	}
 
+	public static String receiveInfo(String fileName) {
+
+		return "[receiving-file] <" + fileName + "> " + "[receiving-size] <" + "?" + ">";
+	}
 }

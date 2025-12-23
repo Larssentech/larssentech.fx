@@ -72,7 +72,7 @@ class DownloaderUiController extends UiController implements FxConstants {
 						DownloaderUiController.this.owner.getOutputArea().setCaretPosition(DownloaderUiController.this.owner.getOutputArea().getText().length());
 					}
 
-					Util.pause(DownloaderReg.SLEEP_MILLIS, "");
+					Util.pause(DownloaderReg.REPORT_SLEEP_MILLIS, EMPTY);
 
 					if (!DownloaderUiController.this.jobMan.isOn()) {
 

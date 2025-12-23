@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 
 import org.larssentech.fx.server.receive.manager.Manager4Receive;
 import org.larssentech.fx.shared.FxConstants;
@@ -27,9 +26,7 @@ public class Receiver implements FxConstants {
 		this.spec.setServerRoot(this.spec.getFolder());
 	}
 
-	public boolean isOn() {
-		return this.on;
-	}
+	public boolean isOn() { return this.on; }
 
 	public void setoff() {
 		this.on = false;
@@ -43,9 +40,7 @@ public class Receiver implements FxConstants {
 		}
 	}
 
-	public void setOn() {
-		this.on = true;
-	}
+	public void setOn() { this.on = true; }
 
 	public void startReceiverServer() {
 
@@ -59,10 +54,7 @@ public class Receiver implements FxConstants {
 
 				SocketBundle sb = new SocketBundle(s);
 
-				this.spec.updateProgress(new Date().toString() + " - " + "Request to Receive...");
 				new Manager4Receive(sb, this.spec).start();
-
-				Out.pl("Receiver manager closed for current upload."); // End
 
 				System.gc();
 			}

@@ -1,5 +1,6 @@
 package org.larssentech.fx.ui.gui.receive;
 
+import org.larssentech.fx.shared.util.Util;
 import org.larssentech.fx.ui.gui.shared.UiController;
 import org.larssentech.fx.ui.gui.shared.WidgetMaker;
 import org.larssentech.lib.basiclib.console.Out;
@@ -21,7 +22,6 @@ class ReceiverUiController extends UiController {
 
 		String inFolder = WidgetMaker.getTextField(this.owner, ReceiverReg.NAME_HOST).getText();
 
-		
 		// Start job manager
 		this.jobMan = new ReceiverJobMan(null);
 		this.jobMan.start();
@@ -49,12 +49,7 @@ class ReceiverUiController extends UiController {
 						ReceiverUiController.this.owner.getOutputArea().setCaretPosition(ReceiverUiController.this.owner.getOutputArea().getText().length());
 					}
 
-					try {
-						Thread.sleep(ReceiverReg.SLEEP_MILLIS);
-
-					} catch (InterruptedException ignored) {
-
-					}
+					Util.pause(ReceiverReg.REPORT_SLEEP_MILLIS, EMPTY);
 
 					if (!ReceiverUiController.this.jobMan.isOn()) {
 

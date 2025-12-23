@@ -68,7 +68,7 @@ class UploaderUiController extends UiController implements FxConstants {
 						UploaderUiController.this.owner.getOutputArea().setCaretPosition(UploaderUiController.this.owner.getOutputArea().getText().length());
 					}
 
-					Util.pause(UploaderReg.SLEEP_MILLIS, "");
+					Util.pause(UploaderReg.REPORT_SLEEP_MILLIS, EMPTY);
 
 					if (!UploaderUiController.this.jobMan.isOn()) {
 

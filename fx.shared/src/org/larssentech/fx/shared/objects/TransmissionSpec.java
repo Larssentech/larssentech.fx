@@ -42,10 +42,7 @@ public class TransmissionSpec {
 		this.progress = progress;
 	}
 
-	public void setClientHeader(StreamHeader header) {
-		this.header = header;
-
-	}
+	public void setClientHeader(StreamHeader header) { this.header = header; }
 
 	public void setHeader(StreamHeader header) {
 		this.header = header;
@@ -84,15 +81,9 @@ public class TransmissionSpec {
 
 	public void setCurrentUnencFile(File currentFile) { this.currentUnencFile = currentFile; }
 
-	public void setFolder(File targetFolder) {
-		this.folder = targetFolder;
+	public void setFolder(File targetFolder) { this.folder = targetFolder; }
 
-	}
-
-	public void setMe(String user) {
-		this.me = user;
-
-	}
+	public void setMe(String user) { this.me = user; }
 
 	public void setOtherUser(String otherUser) { this.otherUser = otherUser; }
 
@@ -109,4 +100,5 @@ public class TransmissionSpec {
 	public PUK getPuk() { return this.puk; }
 
 	public void setPuk(PUK puk) { this.puk = puk; }
+
 }

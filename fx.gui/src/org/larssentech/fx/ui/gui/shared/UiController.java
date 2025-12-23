@@ -9,13 +9,13 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public class UiController {
+import org.larssentech.fx.shared.FxConstants;
+
+public class UiController implements FxConstants {
 
 	private final JPanel owner;
 
-	public UiController(JPanel owner) {
-		this.owner = owner;
-	}
+	public UiController(JPanel owner) { this.owner = owner; }
 
 	public void doControls(boolean on) {
 

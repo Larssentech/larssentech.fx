@@ -72,7 +72,7 @@ public class Util implements FxConstants {
 
 			if (counter > 2) return false;
 
-			Util.pause(1000, "");
+			Util.pause(5000, "");
 
 		} while (expectedSize > currSize);
 

@@ -44,5 +44,8 @@ public interface FxConstants {
 
 	public static final File D_LOG = new File(new Date() + "_" + "download.log");
 	public static final File U_LOG = new File(new Date() + "_" + "upload.log");
+	public static final String DOWN_SYMBOL = " ^·-v-·^ ";
+	public static final String UP_SYMBOL = "  _-^-_  ";
 
+	public static final String ERR_CONNECTION_REFUSED = "Connection refused (Connection refused)";
 }

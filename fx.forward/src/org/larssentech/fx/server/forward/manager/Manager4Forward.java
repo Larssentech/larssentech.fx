@@ -66,8 +66,8 @@ public class Manager4Forward extends Manager4Server {
 					// Display info about the file to send
 					this.spec.getProgress().addInfo(UtilInfo.forwardInfo(currentFile));
 
-					this.spec.getProgress().addInfo(FxConstants.LINER);
-					this.spec.getProgress().addInfo(FxConstants.REPORT_HEADER_OUT2);
+					// this.spec.getProgress().addInfo(FxConstants.LINER);
+					// this.spec.getProgress().addInfo(FxConstants.REPORT_HEADER_OUT2);
 
 					// =========================
 					// This is the critical part

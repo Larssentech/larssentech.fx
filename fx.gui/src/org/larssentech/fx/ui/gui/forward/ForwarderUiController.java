@@ -1,5 +1,6 @@
 package org.larssentech.fx.ui.gui.forward;
 
+import org.larssentech.fx.shared.util.Util;
 import org.larssentech.fx.ui.gui.shared.UiController;
 import org.larssentech.fx.ui.gui.shared.WidgetMaker;
 import org.larssentech.lib.basiclib.console.Out;
@@ -48,12 +49,7 @@ class ForwarderUiController extends UiController {
 						ForwarderUiController.this.owner.getOutputArea().setCaretPosition(ForwarderUiController.this.owner.getOutputArea().getText().length());
 					}
 
-					try {
-						Thread.sleep(ForwarderReg.SLEEP_MILLIS);
-
-					} catch (InterruptedException ignored) {
-
-					}
+					Util.pause(ForwarderReg.REPORT_SLEEP_MILLIS, EMPTY);
 
 					if (!ForwarderUiController.this.jobMan.isOn()) {
 

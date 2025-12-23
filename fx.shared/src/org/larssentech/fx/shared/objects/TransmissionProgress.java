@@ -29,7 +29,7 @@ public class TransmissionProgress {
 		String initialProgress = this.p100 + "%\t" + receivedBytes + "\t" + totalBytes;
 
 		if (this.lastByteCount == 0) {
-			addInfo(initialProgress);
+			// addInfo(initialProgress);
 			this.lastByteCount = receivedBytes;
 		}
 
@@ -42,12 +42,12 @@ public class TransmissionProgress {
 		long limit = totalBytes / 20;
 
 		if (receivedBytes - this.lastByteCount >= limit) {
-			addInfo(progress);
+			// addInfo(progress);
 
 			this.lastByteCount = receivedBytes;
 		}
 
-		if (receivedBytes == totalBytes) addInfo(progress);
+		// if (receivedBytes == totalBytes) addInfo(progress);
 
 	}
 

@@ -28,7 +28,7 @@ public interface SharedReg extends FxConstants {
 	String MSG_STOPPED = "Stopped";
 	String MSG_TAREA_STOPPED = "Inactive";
 
-	int SLEEP_MILLIS = 10;
+	int REPORT_SLEEP_MILLIS = 10;
 	int FIELD_WIDTH = 20;
 
 	Font FONT_SMALL = new Font("SANS_SERIF", 0, 10);
