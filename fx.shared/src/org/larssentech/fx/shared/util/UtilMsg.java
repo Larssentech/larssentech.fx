@@ -20,7 +20,7 @@ public class UtilMsg implements FxConstants {
 
 		return "FileXare " + VERSION + FxConstants.COPYRIGHT +
 
-				"FileXare Receiver Service: " + "\n" + " - Server socket on PORT: " + spec.getPort() + "\n" +
+				"FileXare Receiver Service: " + "\n" + " - Server socket on PORT: " + FileMan.U_PORT + "\n" +
 
 				" - Receiving folder: " + spec.getFolder() + "\n" + "========================================" + "\n";
 	}
@@ -31,13 +31,13 @@ public class UtilMsg implements FxConstants {
 
 				"FileXare Uploader Service: " + "\n" +
 
-				" - User: " + spec.getMe() + "\n" +
+				" - User: " + FileMan.USER + "\n" +
 
-				" - Sending to: " + spec.getOtherUser() + "\n" +
+				" - Sending to: " + FileMan.OTHER_USER + "\n" +
 
-				" - Sending to host: " + spec.getHost() + "\n" +
+				" - Sending to host: " + FileMan.HOST + "\n" +
 
-				" - Sending to port: " + spec.getHost() + "\n" +
+				" - Sending to port: " + FileMan.U_PORT + "\n" +
 
 				" - Sending from folder: " + spec.getFolder() + "\n" +
 
@@ -50,13 +50,13 @@ public class UtilMsg implements FxConstants {
 
 				"FileXare Downloader Service: " + "\n" +
 
-				" - User: " + spec.getMe() + "\n" +
+				" - User: " + FileMan.USER + "\n" +
 
-				" - Receiving from: " + spec.getOtherUser() + "\n" +
+				" - Receiving from: " + FileMan.OTHER_USER + "\n" +
 
-				" - Downloading from host: " + spec.getHost() + "\n" +
+				" - Downloading from host: " + FileMan.HOST + "\n" +
 
-				" - Downloading from port: " + spec.getPort() + "\n" +
+				" - Downloading from port: " + FileMan.D_PORT + "\n" +
 
 				" - Downloading to folder: " + spec.getFolder() + "\n" +
 

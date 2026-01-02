@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
+import org.larssentech.fx.shared.util.FileMan;
 import org.larssentech.fx.shared.util.XmlGen;
 import org.larssentech.lib.basiclib.net.SocketBundle;
 
@@ -20,7 +21,7 @@ public class TransmissionConfirm {
 		try {
 			return sb.readLineIn();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
@@ -53,7 +54,7 @@ public class TransmissionConfirm {
 	}
 
 	public static String sendHeader(File file, SocketBundle sb, TransmissionSpec spec) throws IOException {
-		String xml = XmlGen.generateHeader(file, spec.getMe(), spec.getOtherUser());
+		String xml = XmlGen.generateHeader(file, FileMan.USER, FileMan.OTHER_USER);
 
 		// Send header as text
 		sb.printOut(xml);

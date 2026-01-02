@@ -1,19 +1,28 @@
 package org.larssentech.fx.ui.gui.upload;
 
 import java.awt.FlowLayout;
-import java.awt.Label;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import org.larssentech.fx.shared.FxConstants;
+import org.larssentech.fx.shared.util.FileMan;
 import org.larssentech.fx.ui.gui.shared.WidgetMaker;
-import org.larssentech.lib.basiclib.settings.SettingsExtractor;
 
-public class UploaderJPanel extends JPanel {
+public class UploaderJPanel extends JPanel implements FxConstants {
 
 	private UploaderUiController uiController;
 	private JTextArea outputArea;
+	private JLabel anime;
+	private JLabel anime0;
+	private JScrollPane scroller;
+
+	public JScrollPane getScroller() { return this.scroller; }
 
 	public UploaderJPanel(String iniFile) {
 
@@ -30,36 +39,42 @@ public class UploaderJPanel extends JPanel {
 		this.setName(UploaderReg.APP_NAME);
 
 		// User
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_USER, SettingsExtractor.extractThis4(iniFile, "USER"), false));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_USER, FileMan.USER, false));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_USER));
 
 		// Send to
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_SEND_TO, SettingsExtractor.extractThis4(iniFile, "OTHER_USER"), false));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_SEND_TO, FileMan.OTHER_USER, false));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_SEND_TO));
 
 		// Host
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_HOST, SettingsExtractor.extractThis4(iniFile, "HOST"), false));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_HOST, FileMan.HOST, false));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_HOST));
 
 		// Port
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_PORT, UploaderReg.VAL_PORT, false));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_PORT, String.valueOf(FileMan.U_PORT), false));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_PORT));
 
 		// File
-		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_FOLDER, UploaderReg.VAL_FOLDER, false));
+		this.add(WidgetMaker.makeTextField(UploaderReg.FIELD_WIDTH, UploaderReg.NAME_FOLDER, FileMan.U_FOLDER + SEP + FileMan.OTHER_USER, false));
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_FOLDER));
 
 		// Output scroll pane with text area
 		this.add(WidgetMaker.makeLabel(UploaderReg.LBL_OUTPUT));
 
 		this.outputArea = WidgetMaker.makeTextArea(UploaderReg.NAME_OUTPUT);
-		this.add(WidgetMaker.makeJScrollPane(this.outputArea));
+		this.scroller = WidgetMaker.makeJScrollPane(this.outputArea);
+		// this.scroller.setVisible(false);
+		this.add(this.scroller);
 
 		// Separator
-		this.add(new Label(UploaderReg.SEPARATOR));
+		// this.add(new Label(UploaderReg.SEPARATOR));
 
 		// Start button
 		this.add(WidgetMaker.makeButton(this, UploaderReg.NAME_BUTTON, UploaderReg.LBL_START, UploaderReg.CMD_START, new UploaderUiEvent(this)));
+
+		// Funky shit
+		this.add(WidgetMaker.makeLabel("green_", new ImageIcon("green_.png")));
+		this.add(WidgetMaker.makeLabel("green", new ImageIcon("green.gif")));
 
 		// Final frame settings
 		this.uiController.setFormat();
@@ -68,11 +83,11 @@ public class UploaderJPanel extends JPanel {
 		this.setVisible(true);
 	}
 
-	JTextArea getOutputArea() {
-		return this.outputArea;
-	}
+	public JLabel getAnime0() { return this.anime0; }
 
-	public UploaderUiController getUiController() {
-		return this.uiController;
-	}
+	JTextArea getOutputArea() { return this.outputArea; }
+
+	public UploaderUiController getUiController() { return this.uiController; }
+
+	public JComponent getAnime() { return this.anime; }
 }

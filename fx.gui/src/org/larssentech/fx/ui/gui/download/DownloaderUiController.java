@@ -6,6 +6,7 @@ import org.larssentech.fx.client.download.manager.DownloaderJobMan;
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
+import org.larssentech.fx.shared.util.FileMan;
 import org.larssentech.fx.shared.util.Util;
 import org.larssentech.fx.ui.gui.shared.SharedReg;
 import org.larssentech.fx.ui.gui.shared.UiController;
@@ -25,23 +26,17 @@ class DownloaderUiController extends UiController implements FxConstants {
 
 	void start() {
 
-		String host = WidgetMaker.getText(this.owner, DownloaderReg.NAME_HOST);
-		int port = WidgetMaker.getNumber(this.owner, DownloaderReg.NAME_PORT);
-		String folder = WidgetMaker.getText(this.owner, DownloaderReg.NAME_FOLDER);
-		String user = WidgetMaker.getText(this.owner, DownloaderReg.NAME_USER);
-		String otherUser = WidgetMaker.getText(this.owner, DownloaderReg.NAME_RECEIVE_FROM);
-
-		String path = CTKSettings.OTHER_USERS_PUB_KEY_LIB + FxConstants.SEP + otherUser + FxConstants.SEP + otherUser;
+		String path = CTKSettings.OTHER_USERS_PUB_KEY_LIB + FxConstants.SEP + FileMan.OTHER_USER + FxConstants.SEP + FileMan.OTHER_USER;
 
 		PUK puk = new PUK(EmbeddedApi.exportPuk2Base64(path));
 
 		if (puk.getStringValue().length() > 0) {
 
-			puk.setEmail(otherUser);
+			puk.setEmail(FileMan.OTHER_USER);
 
-			final String targetFolder = folder + FxConstants.SEP + otherUser;
+			final String targetFolder = FileMan.D_FOLDER + FxConstants.SEP + FileMan.OTHER_USER;
 
-			final TransmissionSpec spec = new TransmissionSpec(host, port, targetFolder, user, puk, this.progress, false);
+			final TransmissionSpec spec = new TransmissionSpec(FileMan.HOST, FileMan.D_PORT, targetFolder, FileMan.USER, puk, this.progress, false);
 
 			this.jobMan = new DownloaderJobMan(spec);
 			this.jobMan.start();
@@ -52,6 +47,9 @@ class DownloaderUiController extends UiController implements FxConstants {
 	}
 
 	private void startReporting() {
+
+		WidgetMaker.getComponent(this.owner, "green_").setVisible(false);
+		WidgetMaker.getComponent(this.owner, "green").setVisible(true);
 
 		Thread t = new Thread() {
 
@@ -89,6 +87,9 @@ class DownloaderUiController extends UiController implements FxConstants {
 	public void stopClient() {
 		DownloaderUiController.this.jobMan.stopConnect();
 		DownloaderUiController.this.owner.getOutputArea().setText(SharedReg.MSG_TAREA_STOPPED);
+
+		WidgetMaker.getComponent(this.owner, "green_").setVisible(true);
+		WidgetMaker.getComponent(this.owner, "green").setVisible(false);
 
 	}
 }

@@ -6,6 +6,7 @@ import org.larssentech.fx.client.upload.manager.UploaderJobMan;
 import org.larssentech.fx.shared.FxConstants;
 import org.larssentech.fx.shared.objects.TransmissionProgress;
 import org.larssentech.fx.shared.objects.TransmissionSpec;
+import org.larssentech.fx.shared.util.FileMan;
 import org.larssentech.fx.shared.util.Util;
 import org.larssentech.fx.ui.gui.shared.SharedReg;
 import org.larssentech.fx.ui.gui.shared.UiController;
@@ -25,21 +26,15 @@ class UploaderUiController extends UiController implements FxConstants {
 
 	void start() {
 
-		String host = WidgetMaker.getText(this.owner, UploaderReg.NAME_HOST);
-		int port = WidgetMaker.getNumber(this.owner, UploaderReg.NAME_PORT);
-		String folder = WidgetMaker.getText(this.owner, UploaderReg.NAME_FOLDER);
-		String user = WidgetMaker.getText(this.owner, UploaderReg.NAME_USER);
-		String otherUser = WidgetMaker.getText(this.owner, UploaderReg.NAME_SEND_TO);
-
-		String path = CTKSettings.OTHER_USERS_PUB_KEY_LIB + FxConstants.SEP + otherUser + FxConstants.SEP + otherUser;
+		String path = CTKSettings.OTHER_USERS_PUB_KEY_LIB + FxConstants.SEP + FileMan.OTHER_USER + FxConstants.SEP + FileMan.OTHER_USER;
 
 		PUK puk = new PUK(EmbeddedApi.exportPuk2Base64(path));
 
 		if (puk.getStringValue().length() > 0) {
 
-			puk.setEmail(otherUser);
+			puk.setEmail(FileMan.OTHER_USER);
 
-			TransmissionSpec spec = new TransmissionSpec(host, port, folder + FxConstants.SEP + otherUser, user, puk, this.progress, false);
+			TransmissionSpec spec = new TransmissionSpec(FileMan.HOST, FileMan.U_PORT, FileMan.U_FOLDER + FxConstants.SEP + FileMan.OTHER_USER, FileMan.USER, puk, this.progress, false);
 			this.jobMan = new UploaderJobMan(spec);
 			this.jobMan.start();
 
@@ -48,6 +43,10 @@ class UploaderUiController extends UiController implements FxConstants {
 	}
 
 	private void startReporting() {
+
+		// this.owner.getScroller().setVisible(true);
+		WidgetMaker.getComponent(this.owner, "green_").setVisible(false);
+		WidgetMaker.getComponent(this.owner, "green").setVisible(true);
 
 		Thread t = new Thread() {
 
@@ -85,6 +84,10 @@ class UploaderUiController extends UiController implements FxConstants {
 	public void stopClient() {
 		UploaderUiController.this.jobMan.stopConnect();
 		UploaderUiController.this.owner.getOutputArea().setText(SharedReg.MSG_TAREA_STOPPED);
+
+		// this.owner.getScroller().setVisible(false);
+		WidgetMaker.getComponent(this.owner, "green_").setVisible(true);
+		WidgetMaker.getComponent(this.owner, "green").setVisible(false);
 
 	}
 }

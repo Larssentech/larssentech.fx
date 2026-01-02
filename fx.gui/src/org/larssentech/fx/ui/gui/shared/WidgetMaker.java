@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -27,10 +29,11 @@ public class WidgetMaker {
 	 * different subclasses, that do the same thing.
 	 * 
 	 * @param owner
-	 * @param label
+	 * @param imageIcon
 	 * @param actionCommand
 	 * @return
 	 */
+
 	public static JButton makeButton(JPanel owner, String name, String label, String actionCommand, ActionListener action) {
 
 		JButton b = new JButton(label);
@@ -55,7 +58,7 @@ public class WidgetMaker {
 		t.setName(name);
 		t.setText(text);
 		t.setEditable(editable);
-		// t.setPreferredSize(new Dimension(1, 40));
+		t.setPreferredSize(new Dimension(20, 20));
 
 		t.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		t.setBackground(null);
@@ -79,6 +82,7 @@ public class WidgetMaker {
 		outputArea.setDoubleBuffered(true);
 		outputArea.setEditable(false);
 		outputArea.setMargin(new Insets(5, 5, 5, 5));
+		// outputArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		return outputArea;
 	}
@@ -95,7 +99,7 @@ public class WidgetMaker {
 
 		scrollPane.getVerticalScrollBar().setBackground(SharedReg.COLOUR_BACKGROUND);
 		scrollPane.getVerticalScrollBar().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		scrollPane.setPreferredSize(new Dimension(300, 400));
+		scrollPane.setPreferredSize(new Dimension(380, 300));
 
 		return scrollPane;
 	}
@@ -182,5 +186,13 @@ public class WidgetMaker {
 		b.setActionCommand(newCommand);
 		b.setText(newLabel);
 
+	}
+
+	public static Component makeLabel(String name, ImageIcon imageIcon) {
+
+		JLabel l = new JLabel(imageIcon);
+		l.setName(name);
+
+		return l;
 	}
 }

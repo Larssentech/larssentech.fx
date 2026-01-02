@@ -10,7 +10,7 @@ public class Util4Server implements FxConstants {
 
 	public static void processFileStructure(TransmissionSpec spec) {
 
-		File targetFolder = new File(spec.getServerRoot() + SEP + spec.getOtherUser() + SEP + spec.getMe());
+		File targetFolder = new File(spec.getServerRoot() + SEP + FileMan.OTHER_USER + SEP + FileMan.USER);
 		targetFolder.mkdirs();
 		spec.setFolder(targetFolder);
 

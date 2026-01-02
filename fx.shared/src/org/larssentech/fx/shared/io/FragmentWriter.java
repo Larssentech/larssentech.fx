@@ -37,8 +37,8 @@ public class FragmentWriter extends FragmentHandler {
 			// Counter for the number of bytes sent so far (cumulative)
 			long totalCount = 0;
 
-			// this.spec.updateProgress(LINER);
-			// this.spec.updateProgress(REPORT_HEADER_OUT2);
+			this.spec.updateProgress(LINER);
+			this.spec.updateProgress(REPORT_HEADER_OUT2);
 
 			while ((readCount = byteReader.readBytes(bytesRead)) != -1 && this.isOn()) {
 
@@ -48,13 +48,12 @@ public class FragmentWriter extends FragmentHandler {
 				this.sb.write(bytesRead, 0, readCount);
 				// =========================
 
-				// this.updateProgress(totalCount, targetFileLength);
+				this.updateProgress(totalCount, targetFileLength);
 			}
 
 			byteReader.closeStream();
 
-			// success = TransmissionConfirm.requestConfirm(this.sb, encBase64File,
-			// totalCount);
+			success = TransmissionConfirm.requestConfirm(this.sb, encBase64File, totalCount);
 
 			String line = this.sb.readLineIn();
 
@@ -72,8 +71,8 @@ public class FragmentWriter extends FragmentHandler {
 				else this.sb.printOut(FxConstants.FAIL);
 			}
 
-			// this.spec.updateProgress(LINER);
-			// this.spec.updateProgress("");
+			this.spec.updateProgress(LINER);
+			this.spec.updateProgress("");
 
 			this.sb.close();
 

@@ -8,20 +8,6 @@ import org.larssentech.lib.basiclib.settings.SettingsExtractor;
 
 public class Util implements FxConstants {
 
-	public static void createClientFolders() {
-
-		new File(FILEXARE_HOME).mkdir();
-		new File(FILEXARE_OUTBOX).mkdir();
-		new File(FILEXARE_INBOX).mkdir();
-		new File(FILEXARE_SENT).mkdir();
-	}
-
-	public static void createServerFolders() {
-
-		createClientFolders();
-		new File(FILEXARE_SERVER).mkdir();
-	}
-
 	public static void pause(int i, String string) {
 		try {
 
@@ -77,16 +63,6 @@ public class Util implements FxConstants {
 		} while (expectedSize > currSize);
 
 		return false;
-
-	}
-
-	public static void createDownloadFolder(String receiveFrom) {
-		new File(FILEXARE_INBOX + SEP + receiveFrom).mkdir();
-
-	}
-
-	public static void createUploadFolder(String sendTo) {
-		new File(FILEXARE_OUTBOX + SEP + sendTo).mkdir();
 
 	}
 
@@ -158,7 +134,7 @@ public class Util implements FxConstants {
 
 		do {
 
-			Util.pause(5000, "");
+			Util.pause(STABILISE_PAUSE, "");
 
 			prevSize = currSize;
 			prevDate = currDate;

@@ -29,7 +29,7 @@ public interface SharedReg extends FxConstants {
 	String MSG_TAREA_STOPPED = "Inactive";
 
 	int REPORT_SLEEP_MILLIS = 10;
-	int FIELD_WIDTH = 20;
+	int FIELD_WIDTH = 28;
 
 	Font FONT_SMALL = new Font("SANS_SERIF", 0, 10);
 
@@ -52,4 +52,5 @@ public interface SharedReg extends FxConstants {
 	String NAME_FOLDER = "FOLDER";
 	String NAME_USER = "USER";
 	String NAME_SEND_TO = "SEND_TO";
+	String NAME_RECEIVE_FROM = "FROM";
 }
